@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MealManagementSytem.Models.Member>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberPass)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>

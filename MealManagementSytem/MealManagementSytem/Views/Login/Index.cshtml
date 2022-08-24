@@ -1,0 +1,31 @@
+﻿@model MealManagementSytem.Models.Member
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<link rel="stylesheet" href="~/css/Style.css">
+<script src="~/js//Login/Login.js"></script>
+
+<form asp-action="Index" method="post">
+    <div class="shadow p-3 mb-5 w-50" style="margin-left:300px;margin-top:100px;">
+        <div class="bg-light rounded container">
+            <div class="fontuser">
+                <label><b>Username</b></label>
+                <input  asp-for="MemberId" id="loginUser" type="text"
+                       placeholder="Enter Username">
+                <i class="fa fa-user fa-lg"></i>
+            </div>
+
+            <div class="fontpassword">
+                <label><b>Password</b></label>
+                <input asp-for="MemberPass" id="loginPassword" type="password"
+                       placeholder="Enter Password">
+                <i class="fa fa-key fa-lg"></i>
+            </div>
+            <span style="color:red;">@ViewBag.error</span>
+            <button type="submit">Login</button>
+        </div>
+    </div>
+</form>
