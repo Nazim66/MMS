@@ -43,9 +43,6 @@
                         <a class="nav-link" asp-area="" asp-controller="Meal" asp-action="Index">Meals</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Deposite" asp-action="Index">Deposites</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" asp-controller="Login" asp-action="Index">Login</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -53,8 +50,8 @@
                             Dropdown link
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class= "dropdown-item" asp-area="" asp-controller="Deposite" asp-action="Index">Individual Deposit </a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Deposite" asp-action="AllDeposits">All Deposits</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                     </li>

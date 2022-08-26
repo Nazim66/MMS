@@ -1,5 +1,6 @@
 ﻿using MealManagementSytem.Data;
 using MealManagementSytem.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,9 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult IndividualMealDetails()
         {
-            var MealList = _context.Details.ToList();
+            var id = HttpContext.Session.GetString("UserId");
+            var MealList = _context.Details.Where(e => e.MemberId == Convert.ToInt32(id)).ToList();
+         
             return Json(MealList);
         }
 

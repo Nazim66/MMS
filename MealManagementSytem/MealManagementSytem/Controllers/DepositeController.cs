@@ -1,6 +1,7 @@
 ﻿using MealManagementSytem.Data;
 using MealManagementSytem.Entities;
 using MealManagementSytem.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,16 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult IndividualDeposites()
         {
-                
-            var DepositeList = _context.Deposites.ToList();
+            var id = HttpContext.Session.GetString("UserId");
+            var DepositeList = _context.Deposites.Where(e=> e.MemberId == Convert.ToInt32(id)).ToList();
             return Json(DepositeList);
         }
+
         public IActionResult AllDeposits()
+        {
+            return View();
+        }
+        public IActionResult DepositedByAll()
         {
             var depositedbyAll =
                             from d in _context.Deposites
@@ -42,7 +48,22 @@ namespace MealManagementSytem.Controllers
                                 Date = d.Date
 
                             };
-            return Json(depositedbyAll);
+
+            var value = depositedbyAll.ToList();
+            return Json(value);
+        }
+
+        public IActionResult GetMemberName()
+        {
+            var memberList = _context.Members.ToList();
+            return Json(memberList);
+        }
+
+        public IActionResult AddDepositedAmount(Deposite prm)
+        {
+            _context.Add(prm);
+            _context.SaveChanges();
+            return new JsonResult(new { Status = "Successfully Added" });
         }
     }
 }

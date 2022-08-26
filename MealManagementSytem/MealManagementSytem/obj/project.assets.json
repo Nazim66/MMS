@@ -8509,11 +8509,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\source\\repos\\MealManagementSytem\\MealManagementSytem\\MealManagementSytem.csproj",
+      "projectUniqueName": "D:\\GitHub Bash\\MMS\\MealManagementSytem\\MealManagementSytem\\MealManagementSytem.csproj",
       "projectName": "MealManagementSytem",
-      "projectPath": "C:\\Users\\User\\source\\repos\\MealManagementSytem\\MealManagementSytem\\MealManagementSytem.csproj",
+      "projectPath": "D:\\GitHub Bash\\MMS\\MealManagementSytem\\MealManagementSytem\\MealManagementSytem.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\source\\repos\\MealManagementSytem\\MealManagementSytem\\obj\\",
+      "outputPath": "D:\\GitHub Bash\\MMS\\MealManagementSytem\\MealManagementSytem\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

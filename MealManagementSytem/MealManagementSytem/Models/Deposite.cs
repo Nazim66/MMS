@@ -15,8 +15,7 @@ namespace MealManagementSytem.Models
         public int MemberId { get; set; }
         [Required]
         public double Amount { get; set; }
-       // [Required]
-       // public double PreviousAmount { get; set; }
+
         [Required]
         public DateTime Date { get; set; }
     }
