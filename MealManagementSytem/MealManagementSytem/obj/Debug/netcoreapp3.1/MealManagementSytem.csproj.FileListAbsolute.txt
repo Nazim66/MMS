@@ -845,3 +845,4 @@ D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\MealManagementSytem.pdb
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\MealManagementSytem.genruntimeconfig.cache
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Deposite\AllDeposits.cshtml.g.cs
+D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Meal\AllMeals.cshtml.g.cs

@@ -1,11 +1,9 @@
 ﻿$(document).ready(function () {
-    $("#totalDeposits").prop('disabled', true);
-    GetDepositCalculation();
     $('#tblData').DataTable({
         "paging": true,
         "deferRender": true,
         "ajax": {
-            "url": "/Deposite/DepositedByAll",
+            "url": "/Meal/AllMemberMeals",
             "dataSrc": ''
         },
         columnDefs: [
@@ -18,9 +16,11 @@
 
             { "data": "date", "width": "15%" },
             { "data": "memberName", "width": "15%" },
-            { "data": "memberId", "width": "15%"},
-            { "data": "amount", "width": "15%" },
-            { "data": "depositeId", "width": "15%" },
+            { "data": "memberId", "width": "15%" },
+            { "data": "lunch", "width": "15%" },
+            { "data": "guestLunch", "width": "15%" },
+            { "data": "dinner", "width": "15%" },
+            { "data": "guestDinner", "width": "15%" }
         ],
         dom: 'lfrtBip',
         select: true,
@@ -29,18 +29,3 @@
         ]
     });
 });
-
-
-function GetDepositCalculation() {
-
-    $.ajax({
-        url: "/Deposite/DepositCalculation",
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            $('#totalDeposits').val(data);
-        }
-    });
-
-}
-

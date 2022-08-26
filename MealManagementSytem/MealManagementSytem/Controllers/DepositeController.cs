@@ -30,6 +30,15 @@ namespace MealManagementSytem.Controllers
             return Json(DepositeList);
         }
 
+        public IActionResult IndividualDepositCalculation()
+        {
+            var id = HttpContext.Session.GetString("UserId");
+            var date = System.DateTime.Now;
+            var currentDate = date.Date;
+            var totalIndividualDeposits = _context.Deposites.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year && x.MemberId == Convert.ToInt32(id)).Sum(e => e.Amount).ToString();
+            return Json(totalIndividualDeposits);
+        }
+
         public IActionResult AllDeposits()
         {
             return View();
@@ -51,6 +60,14 @@ namespace MealManagementSytem.Controllers
 
             var value = depositedbyAll.ToList();
             return Json(value);
+        }
+
+        public IActionResult DepositCalculation()
+        {
+            var date = System.DateTime.Now;
+            var currentDate = date.Date;
+            var totalDeposits = _context.Deposites.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.Amount);
+            return Json(totalDeposits);
         }
 
         public IActionResult GetMemberName()

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<MealManagementSytem.Entities.DepositDetails>
+﻿@model IEnumerable<MealManagementSytem.Entities.AllMeal>
 
 @{
-    ViewData["Title"] = "AllDeposits";
+    ViewData["Title"] = "AllMeals";
 }
 
 <style type="text/css">
@@ -12,7 +12,7 @@
     }
 </style>
 
-<script src="~/js/Deposite/AllDeposites.js"></script>
+<script src="~/js/Meal/AllMeals.js"></script>
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
@@ -45,9 +45,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.24/dataRender/datetime.js"></script>
 
-<br />
-<br />
-<b>Total deposits Of Current Month:</b><input id="totalDeposits" style="width:100px;" class="form-control" type="text"/>
 
 
 <div class="p-4 border rounded">
@@ -55,10 +52,12 @@
         <thead class="thead-dark">
             <tr class="table-info">
                 <th>Date</th>
-                <th>Name</th>
-                <th>Member Id</th>
-                <th>Amount</th>
-                <th>Deposit Id</th>
+                <th>MemberName</th>
+                <th>MemberId</th>
+                <th>Lunch</th>
+                <th>Guest Lunch</th>
+                <th>Dinner</th>
+                <th>Guest Dinner</th>
             </tr>
         </thead>
         <tbody></tbody>

@@ -1,4 +1,5 @@
 ﻿using MealManagementSytem.Data;
+using MealManagementSytem.Entities;
 using MealManagementSytem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,6 +29,32 @@ namespace MealManagementSytem.Controllers
             var MealList = _context.Details.Where(e => e.MemberId == Convert.ToInt32(id)).ToList();
          
             return Json(MealList);
+        }
+        public IActionResult AllMeals()
+        {
+            return View();
+        }
+        public IActionResult AllMemberMeals()
+        {
+            var id = HttpContext.Session.GetString("UserId");
+            var allMeals =
+                           from c in _context.Details
+                           join m in _context.Members on c.MemberId equals m.MemberId
+                           select new AllMeal
+                           {
+                               GuestDinner = c.GuestDinner,
+                               GuestLunch = c.GuestLunch,
+                               MemberName = m.MemberName,
+                               MemberId = m.MemberId,
+                               Lunch = c.Lunch,
+                               Dinner = c.Dinner,
+                               Date = c.Date
+
+                           };
+
+            var value = allMeals.ToList();
+
+            return Json(value);
         }
 
         public IActionResult AddMealDetails (MealDetail prm)

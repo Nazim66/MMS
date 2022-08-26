@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $("#totalIndividualDeposits").prop('disabled', true);
+    GetIndividualDepositCalculation();
     $('#tblData').DataTable({
         "paging": true,
         "deferRender": true,
@@ -101,6 +103,19 @@ function getData() {
 function closePopup() {
     $('#ddlNameList').empty();
     $("#popupDiv").dialog('close');
+}
+
+function GetIndividualDepositCalculation() {
+
+    $.ajax({
+        url: "/Deposite/IndividualDepositCalculation",
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#totalIndividualDeposits').val(data);
+        }
+    });
+
 }
 
 
