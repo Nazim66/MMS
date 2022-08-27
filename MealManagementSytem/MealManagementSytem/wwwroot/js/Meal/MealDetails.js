@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $("#totalIndividualMeals").prop('disabled', true);
+    GetIndividualMealCalculation();
     $('#tblData').DataTable({
         "paging": true,
         "deferRender": true,
@@ -116,6 +118,20 @@ function getData() {
 
 function closePopup() {
     $("#popupDiv").dialog('close');
+}
+
+
+function GetIndividualMealCalculation() {
+
+    $.ajax({
+        url: "/Meal/IndividualMealCalculation",
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#totalIndividualMeals').val(data);
+        }
+    });
+
 }
 
 
