@@ -847,3 +847,5 @@ D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Deposite\AllDeposits.cshtml.g.cs
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Meal\AllMeals.cshtml.g.cs
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Expense\Index.cshtml.g.cs
+D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\PreviousAccount\Index.cshtml.g.cs
+D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\OverallCalculation\Index.cshtml.g.cs
