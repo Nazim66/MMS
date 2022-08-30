@@ -53,24 +53,30 @@ function generateFieldForDinner() {
 }
 
 function SaveMealDetail() {
+    var charLength = $('#inputFieldForLunch').val().length;
+    var charLength1 = $('#inputFieldForDinner').val().length;
+    if (charLength == 1 && charLength1 == 1) {
+        var data = getData();
 
-    var data = getData();
-
-    $.ajax({
-        url: '/Meal/AddMealDetails',
-        data: { "prm": data },
-        type: "POST",
-        dataType: "json",
-        async: true,
-        success: function (result) {
-            alert('Successfully Added to the Database');
-            closePopup();
-            $('#tblData').DataTable().ajax.reload();
-        },
-        error: function () {
-            alert('Failed to receive the Data');
-        }
-    });
+        $.ajax({
+            url: '/Meal/AddMealDetails',
+            data: { "prm": data },
+            type: "POST",
+            dataType: "json",
+            async: true,
+            success: function (result) {
+                alert(result);
+                closePopup();
+                $('#tblData').DataTable().ajax.reload();
+            },
+            error: function () {
+                alert(result);
+            }
+        });
+    }
+    else {
+        alert("Your Guest Meal Should be One Digits");
+    }
 
 }
 

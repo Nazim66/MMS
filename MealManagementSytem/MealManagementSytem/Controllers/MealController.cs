@@ -85,11 +85,33 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult AddMealDetails (MealDetail prm)
         {
+            var dateForToday = System.DateTime.Now;
+            var Status = "";
             var id = HttpContext.Session.GetString("UserId");
-            prm.MemberId = Convert.ToInt32(id);
-            _context.Add(prm);
-            _context.SaveChanges();
-            return new JsonResult(new { Status = "Successfully Added" });
+            var checkValidation = _context.Details.FirstOrDefault(x => x.MemberId == Convert.ToInt32(id) && x.Date.Date == dateForToday.Date);
+          
+                if (checkValidation == null)
+                {
+                    prm.MemberId = Convert.ToInt32(id);
+                    _context.Add(prm);
+                    _context.SaveChanges();
+                    Status = "Data Successfully Saved!";
+
+                }
+                else
+                {                
+                Status = "Already Inserted Todays Meal";
+            
+                }
+            
+            return new JsonResult(Status);
+        }
+
+
+        public IActionResult CheckMealForIndividualUsers(int id)
+        {
+
+            return null;
         }
 
     }
