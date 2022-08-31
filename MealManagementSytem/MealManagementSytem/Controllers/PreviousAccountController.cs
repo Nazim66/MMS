@@ -50,9 +50,24 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult AddPreviousAmount(PreviousAccount prm)
         {
-            _context.Add(prm);
-            _context.SaveChanges();
-            return new JsonResult(new { Status = "Successfully Added" });
+            var date = System.DateTime.Now;
+            prm.Date = date.Date;
+            var Status = "";
+            var id = prm.MemberId;
+            var checkValidation = _context.PreviousAccounts.FirstOrDefault(e => e.MemberId == id && e.Date.Month == date.Month);
+            if (checkValidation == null)
+            {
+                _context.Add(prm);
+                _context.SaveChanges();
+                Status = "Data is Saved Successfully";
+            }
+            else
+            {
+                Status = "Data already exists!";
+            }
+
+            return Json(Status);
+               
         }
     }
 }

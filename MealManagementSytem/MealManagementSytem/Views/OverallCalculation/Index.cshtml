@@ -90,8 +90,10 @@
                         <td>@info.PreviousAmount</td>
                         <td>@tiktok.TotalCost</td>
                         <td>
-                            @{ double currentBalance = (info.TotalDeposit - tiktok.TotalCost + info.PreviousAmount); }
-                            <span>@currentBalance</span>
+                            @{ double currentBalance = (info.TotalDeposit - tiktok.TotalCost + info.PreviousAmount);
+                                double convertedValue = (double)System.Math.Round(currentBalance, 2);
+                                }
+                            <span>@convertedValue</span>
                         </td>
                     }
                 </tr>

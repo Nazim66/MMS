@@ -63,7 +63,6 @@ function showPopup() {
 function SavePreviousAmount() {
 
     var data = getData();
-
     $.ajax({
         url: '/PreviousAccount/AddPreviousAmount',
         data: { "prm": data },
@@ -71,12 +70,12 @@ function SavePreviousAmount() {
         dataType: "json",
         async: true,
         success: function (result) {
-            alert('Successfully Added to the Database');
+            alert(result);
             closePopup();
             $('#tblData').DataTable().ajax.reload();
         },
         error: function () {
-            alert('Failed to receive the Data');
+            alert(result);
         }
     });
 
@@ -91,8 +90,8 @@ function getData() {
     var amount = $('#inputFieldForPreviousAmount').val();
     obj.Amount = amount;
 
-    var date = $('#inputFieldForPreviousDate').val();
-    obj.Date = date;
+    //var date = $('#inputFieldForPreviousDate').val();
+   // obj.Date = date;
 
     return obj;
 }

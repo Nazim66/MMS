@@ -40,6 +40,7 @@ namespace MealManagementSytem.Controllers
                                        join l in _context.Members on d.MemberId equals l.MemberId 
                                        join p in _context.PreviousAccounts on d.MemberId equals p.MemberId
                                        where d.Date.Month == date.Month && d.Date.Year == date.Year
+                                       && p.Date.Month == date.Month && p.Date.Year == date.Year
                                        group d by new {d.MemberId , l.MemberName, p.Amount } into mm
                                        select new ToalCalculation
                                        {
@@ -58,7 +59,7 @@ namespace MealManagementSytem.Controllers
                                         select new ToalCalculation
                                         {
                                             MemberId = dd.Key.MemberId,
-                                            TotalCost = (dd.Sum(x => x.Lunch) + dd.Sum(x => x.GuestLunch) + dd.Sum(x => x.Dinner) + dd.Sum(x => x.GuestDinner)) * MealRate,
+                                            TotalCost = (double)System.Math.Round((dd.Sum(x => x.Lunch) + dd.Sum(x => x.GuestLunch) + dd.Sum(x => x.Dinner) + dd.Sum(x => x.GuestDinner)) * MealRate,2),
                                             TotalMeal = dd.Sum(x => x.Lunch) + dd.Sum(x => x.GuestLunch) + dd.Sum(x => x.Dinner) + dd.Sum(x => x.GuestDinner)
                                         };
 
@@ -75,17 +76,6 @@ namespace MealManagementSytem.Controllers
             return Json(overallExpenses);
         }
 
-        //public IActionResult AllMealCalculation()
-        //{
-        //    var date = System.DateTime.Now;
-        //    var currentDate = date.Date;
-        //    var totalLunch = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.Lunch);
-        //    var totalGuestLunch = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.GuestLunch);
-        //    var totalDinner = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.Dinner);
-        //    var totalGuestDinner = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.GuestDinner);
-        //    var overallMeals = (totalLunch + totalGuestLunch + totalDinner + totalGuestDinner);
-        //    return Json(overallMeals);
-        //}
 
         public IActionResult OverallMealAndExpense()
         {
@@ -95,6 +85,7 @@ namespace MealManagementSytem.Controllers
             var currentDate = date.Date;
 
             mymealratemodel.overallExpenseCount = _context.Expenses.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.Amount);
+
             var totalLunch = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.Lunch);
             var totalGuestLunch = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.GuestLunch);
             var totalDinner = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.Dinner);

@@ -34,7 +34,7 @@ function GetCalculation() {
             $('#overallMeals').val(data.overAllMealsCount);
             var exp = $('#overallExpenses').val();
             var meals = $('#overallMeals').val();
-            var mealRate = exp / meals;
+            var mealRate = (exp / meals).toFixed(2);
             $('#overallmealRates').val(mealRate);
         }
     });

@@ -7,12 +7,19 @@
             "url": "Member/AllMember",
             "dataSrc": ''
         },
+
+        columnDefs: [
+            {
+                target: 3,
+                visible: false,
+            },
+        ],
         "columns": [
 
             { "data": "memberId", "width": "25%" },
             { "data": "memberName", "width": "25%" },
             { "data": "memberType", "width": "25%" },
-            { "data": "memberPass", "width": "25%" }
+            { "data": "memberPass", "width": "25%", "visible": false }
 
         ],
         dom: 'lfrtBip',
