@@ -61,8 +61,7 @@
         <div class="checkbox">
             <label><input id="lunchCheckBox" type="checkbox">&nbsp;<storng>Lunch</storng><a onclick="generateFieldForLunch()" class="btn btn-sm btn-light"><i class="fa fa-plus" aria-hidden="true"></i></a></label>
             <div>
-                <input id="inputFieldForLunch" class='form-control' type='number' />
-                <span asp-validation-for="GuestLunch" class="text-danger"></span>
+                <input id="inputFieldForLunch" placeholder="Guest Lunch" class='form-control' type='number' />
             </div>
         </div>
         <br />
@@ -70,8 +69,7 @@
             <label><input id="dinnerCheckBox" type="checkbox">&nbsp;<storng>Dinner</storng><a onclick="generateFieldForDinner()"><i class="fa fa-plus" aria-hidden="true"></i></a></label>
         </div>
         <div>
-            <input id="inputFieldForDinner" class='form-control' type='number' />
-            <span asp-validation-for="GuestDinner" class="text-danger"></span>
+            <input id="inputFieldForDinner" placeholder="Guest Dinner" class='form-control' type='number' />
         </div>
         <br />
         <button type="submit" class="btn btn-sm btn-primary" onclick="SaveMealDetail()">Confirm</button>
@@ -92,7 +90,3 @@
         <tbody></tbody>
     </table>
 </div>
-
-@section scripts{
-    <partial name="_ValidationScriptsPartial" />
-}

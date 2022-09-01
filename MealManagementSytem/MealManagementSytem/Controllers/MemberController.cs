@@ -1,9 +1,11 @@
 ﻿using MealManagementSytem.Data;
 using MealManagementSytem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
@@ -22,8 +24,6 @@ namespace MealManagementSytem.Controllers
             return View();
         }
 
-        
-
         public IActionResult AllMember()
         {
             var MemberList = _context.Members.ToList();
@@ -33,9 +33,38 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult AddMember(Member prm)
         {
-            _context.Add(prm);
+            var Status = "";
+            if (prm.MemberId.ToString() == null)
+            {
+                prm.MemberId = 0;
+            }
+            if(prm.MemberId == 0)
+            {
+                _context.Add(prm);
+                Status = "Successfully Saved to the Database";
+            }
+            else
+            {
+                _context.Members.Update(prm);
+                Status = "Successfully Update to the Database";
+            }
             _context.SaveChanges();
-            return new JsonResult(new { Status = "Successfully Added" });
+            return new JsonResult(Status);
+        }
+
+        public IActionResult UpdateMemberById(int id)
+        {
+            var memberInfo = _context.Members.FirstOrDefault(e => e.MemberId == id);
+            return Json(memberInfo);
+        }
+        public IActionResult MemberRemove(int id)
+        {
+            var status = "";
+            var remove = _context.Members.FirstOrDefault(x=> x.MemberId == id);
+            _context.Members.Remove(remove);
+            _context.SaveChanges();
+            status = "Successfully Deleted";
+            return Json(status);
         }
     }
 }

@@ -15,6 +15,6 @@ namespace MealManagementSytem.Models
         [Required]
         public string MemberType { get; set; }
         [Required]
-        public int MemberPass { get; set; }
+        public string MemberPass { get; set; }
     }
 }

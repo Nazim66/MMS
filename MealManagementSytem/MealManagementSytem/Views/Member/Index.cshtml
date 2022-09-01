@@ -38,8 +38,16 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.24/dataRender/datetime.js"></script>
 
-<br/>
-<br/>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://kit.fontawesome.com/e19c476714.js"></script>
+
+<br />
+<br />
 
 <div style="float:right;margin-bottom:15px;">
     <a id="popup" class="btn btn-sm btn-success text-white" onclick="showPopup()"><i class="fa fa-plus text-white" aria-hidden="true"></i>New</a>
@@ -47,18 +55,19 @@
 
 <div id="popupDiv" style="display:none">
     <div>
-       
-        <label>Member Id</label>
         <input id="inputFieldForMId" class='form-control' type="number" />
         <br>
         <label>Member Name</label>
         <input id="inputFieldForMName" class='form-control' type="text" />
         <br>
         <label>Member Type</label>
-        <input id="inputFieldForMType" class='form-control' type="text" />
+        <select id="inputFieldForMType" class="form-control">
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+        </select>
         <br>
         <label>Member Password</label><br>
-        <input id="inputFieldForMPass" class='form-control' type="number" />
+        <input id="inputFieldForMPass" class='form-control' type="text" />
         <br />
         <button type="submit" class="btn btn-sm btn-primary" onclick="SaveMember()">Confirm</button>
         <button type="submit" class="btn btn-sm btn-danger" onclick="closePopup()">Close</button>
@@ -75,6 +84,7 @@
                 <th>Member Name</th>
                 <th>Member Type</th>
                 <th>Member Password</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody></tbody>

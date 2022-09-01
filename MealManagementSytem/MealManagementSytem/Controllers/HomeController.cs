@@ -1,4 +1,6 @@
-﻿using MealManagementSytem.Models;
+﻿using MealManagementSytem.Data;
+using MealManagementSytem.Entities;
+using MealManagementSytem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,11 +13,12 @@ namespace MealManagementSytem.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -28,10 +31,42 @@ namespace MealManagementSytem.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult TodaysMeal()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var date = System.DateTime.Now;
+
+            var allMeals =
+                           from c in _context.Details
+                           join m in _context.Members on c.MemberId equals m.MemberId
+                           where c.Date.Day == date.Day &&  c.Date.Year == date.Year && c.Date.Month == date.Month
+                           select new AllMeal
+                           {
+                               GuestDinner = c.GuestDinner,
+                               GuestLunch = c.GuestLunch,
+                               MemberName = m.MemberName,
+                               MemberId = m.MemberId,
+                               Lunch = c.Lunch,
+                               Dinner = c.Dinner,
+                               Date = c.Date
+
+                           };
+
+            var value = allMeals.ToList().OrderByDescending(x => x.Date);
+
+            return Json(value);
+        }
+
+
+        public IActionResult MealCalculationForTodays()
+        {
+            var date = System.DateTime.Now;
+            var currentDate = date.Date;
+            var totalLunch = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year && x.Date.Day == currentDate.Day).Sum(e => e.Lunch);
+            var totalGuestLunch = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year && x.Date.Day == currentDate.Day).Sum(e => e.GuestLunch);
+            var totalDinner = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year && x.Date.Day == currentDate.Day).Sum(e => e.Dinner);
+            var totalGuestDinner = _context.Details.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year && x.Date.Day == currentDate.Day).Sum(e => e.GuestDinner);
+            var totalMeals = (totalLunch + totalGuestLunch + totalDinner + totalGuestDinner);
+            return Json(totalMeals);
         }
     }
 }
