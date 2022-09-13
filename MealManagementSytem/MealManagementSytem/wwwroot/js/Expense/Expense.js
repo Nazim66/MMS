@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    $("#inputFieldForExpenseDate").datepicker();
     $("#totalExpenses").prop('disabled', true);
     GetDepositCalculation();
     $('#tblData').DataTable({
@@ -22,7 +23,22 @@
             { "data": "memberId", "width": "25%"},
             { "data": "memberName", "width": "25%"},
             { "data": "amount", "width": "25%" },
-            { "data": "bazarDetail", "width": "25%" }
+            { "data": "bazarDetail", "width": "25%" },
+            {
+                "data": "expenseId", "width": "5%",
+                "render": function (data) {
+                    return `
+                            <div class="text-center">
+                                <a style="color:black" onclick=UpdateExpense("/Expense/UpdateExpenseById/${data}") >
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a style="color:black" id="btnDelete" onclick=DeleteExpense("/Expense/ExpenseRemove/${data}")>
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                           </div>`;
+
+                }, "width": "20%"
+            }
 
         ],
         dom: 'lfrtBip',
@@ -32,6 +48,79 @@
         ]
     });
 });
+
+
+function UpdateExpense(data) {
+
+    $.ajax({
+        url: data,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            PopulateEditData(data);
+        }
+    });
+}
+
+
+function PopulateEditData(data) {
+
+    $("#popupDiv").dialog({
+        width: 400,
+        height: 450,
+        modal: true,
+        dialogClass: 'dialogWithDropShadow'
+    });
+    setTimeout(function () {
+        clearField();
+        console.warn(data);
+        makeDropdownforName();
+        $('#ddlNameList').val(data.memberId);
+        $('#inputFieldForExpenseAmount').val(data.amount);
+        var dt_to = $.datepicker.formatDate('mm-dd-yy', new Date());
+        $('#inputFieldForExpenseDate').val(dt_to);
+        $('#inputFieldForExpenseDetails').val(data.bazarDetail);
+    }, 20)
+
+
+
+}
+
+
+function clearField() {
+
+    $('#inputFieldForExpenseAmount').val("");
+    $('#inputFieldForExpenseDate').val("");
+    $('#inputFieldForExpenseDetails').val("");
+
+}
+
+function DeleteExpense(data) {
+
+    swal({
+        title: "are you sure, you want to delete",
+        text: "once delete, you will never recover the data!",
+        icon: "warning",
+        buttons: true,
+        dangermode: true
+    }).then((willdelete) => {
+        if (willdelete) {
+            $.ajax({
+                type: "delete",
+                url: data,
+                success: function (data) {
+                    if (data) {
+                        toastr.success(data);
+                        $('#tbldata').datatable().ajax.reload();
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        }
+    });
+}
 
 var count = 0;
 function showPopup() {
@@ -44,22 +133,26 @@ function showPopup() {
     });
 
     setTimeout(function () {
-        var select = $("#ddlNameList");
-        $.ajax({
-            url: "Expense/GetExpensesMemberName",
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                var datavalue = data;
-                var serverResponse = datavalue;
-                contentType: "application/json";
-                $.each(serverResponse, function (i, serverResponse) {
-                    select.append("<option value='" + serverResponse.memberId + "'>" + serverResponse.memberName + "</option>")
-                });
-            }
-        });
+        makeDropdownforName();
     }, 20)
 
+}
+
+function makeDropdownforName() {
+    var select = $("#ddlNameList");
+    $.ajax({
+        url: "Expense/GetExpensesMemberName",
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var datavalue = data;
+            var serverResponse = datavalue;
+            contentType: "application/json";
+            $.each(serverResponse, function (i, serverResponse) {
+                select.append("<option value='" + serverResponse.memberId + "'>" + serverResponse.memberName + "</option>")
+            });
+        }
+    });
 }
 
 function SaveExpensesAmount() {

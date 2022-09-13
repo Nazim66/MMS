@@ -3,6 +3,7 @@
     GetIndividualMealCalculation();
     $('#tblData').DataTable({
         "paging": true,
+        "order": [[0, 'desc']],
         "deferRender": true,
         "ajax": {
             "url": "Meal/IndividualMealDetails",
@@ -13,9 +14,9 @@
             render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss', 'YYYY/MM/DD')
         }],
         "columns": [
-            { "data": "date", "width": "15%"},
-            { "data": "lunch", "width":"15%" },
-            { "data": "guestLunch", "width":"15%" },
+            { "data": "date", "width": "15%" },
+            { "data": "lunch", "width": "15%" },
+            { "data": "guestLunch", "width": "15%" },
             { "data": "dinner", "width": "15%" },
             { "data": "guestDinner", "width": "15%" }
         ],
@@ -53,14 +54,13 @@ function generateFieldForDinner() {
 }
 
 function SaveMealDetail() {
-    var charLength = $('#inputFieldForLunch').val().length;
-    var charLength1 = $('#inputFieldForDinner').val().length;
-    if (charLength == 1 && charLength1 == 1) {
-        var data = getData();
-
+    //var guestLunchLength = $('#inputFieldForLunch').val().length;
+    //var guestDinnerLength = $('#inputFieldForDinner').val().length;
+    
+    var data = getData();
         $.ajax({
             url: '/Meal/AddMealDetails',
-            data: { "prm": data },
+            data: { "prm": data},
             type: "POST",
             dataType: "json",
             async: true,
@@ -73,17 +73,13 @@ function SaveMealDetail() {
                 alert(result);
             }
         });
-    }
-    else {
-        alert("Your Guest Meal Should be One Digits");
-    }
 
 }
 
 
 function getData() {
 
-     obj = new Object();
+    obj = new Object();
 
     if ($('#lunchCheckBox').prop('checked') == true) {
         obj.Lunch = 1;
@@ -117,7 +113,7 @@ function getData() {
 
     obj.Status = 0;
     var today = new Date();
-    var date =  (today.getFullYear()) + "/" + (today.getMonth() + 1) + "/" + (today.getDate());
+    var date = (today.getFullYear()) + "/" + (today.getMonth() + 1) + "/" + (today.getDate());
     obj.Date = date;
     return obj;
 }
@@ -141,4 +137,4 @@ function GetIndividualMealCalculation() {
 }
 
 
-       
+

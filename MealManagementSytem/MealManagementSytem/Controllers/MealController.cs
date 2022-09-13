@@ -26,8 +26,8 @@ namespace MealManagementSytem.Controllers
         public IActionResult IndividualMealDetails()
         {
             var id = HttpContext.Session.GetString("UserId");
-            var MealList = _context.Details.Where(e => e.MemberId == Convert.ToInt32(id) && e.MemberId !=0).ToList();
-         
+            var MealList = _context.Details.Where(e => e.MemberId == Convert.ToInt32(id) && e.MemberId != 0).ToList();
+
             return Json(MealList);
         }
 
@@ -65,7 +65,7 @@ namespace MealManagementSytem.Controllers
 
                            };
 
-            var value = allMeals.ToList().OrderByDescending(x=> x.Date);
+            var value = allMeals.ToList().OrderByDescending(x => x.Date);
 
             return Json(value);
         }
@@ -83,27 +83,45 @@ namespace MealManagementSytem.Controllers
             return Json(totalMeals);
         }
 
-        public IActionResult AddMealDetails (MealDetail prm)
+        public IActionResult AddMealDetails(MealDetail prm)
         {
             var dateForToday = System.DateTime.Now;
             var Status = "";
             var id = HttpContext.Session.GetString("UserId");
             var checkValidation = _context.Details.FirstOrDefault(x => x.MemberId == Convert.ToInt32(id) && x.Date.Date == dateForToday.Date);
-          
+            if(prm.GuestLunch >= 0 && prm.GuestDinner >= 0)
+            {
+                var guestLunchLength = prm.GuestLunch;
+                var guestDinnerLength = prm.GuestDinner;
+                var length1 = guestLunchLength.ToString().Length;
+                var length2 = guestDinnerLength.ToString().Length;
+
                 if (checkValidation == null)
                 {
-                    prm.MemberId = Convert.ToInt32(id);
-                    _context.Add(prm);
-                    _context.SaveChanges();
-                    Status = "Data Successfully Saved!";
+                    if (length1 <= 1 || length2 <= 1)
+                    {
+                        prm.MemberId = Convert.ToInt32(id);
+                        _context.Add(prm);
+                        _context.SaveChanges();
+                        Status = "Data Successfully Saved!";
+                    }
+                    else
+                    {
+                        Status = "You Should Give 1 Digit!!!";
+                    }
 
                 }
                 else
-                {                
-                Status = "Already Inserted Todays Meal";
-            
+                {
+                    Status = "Already Inserted Todays Meal";
+
                 }
-            
+            }
+            else
+            {
+                Status = "You are Given Negetive Number of Meal For Guest!";
+            }
+
             return new JsonResult(Status);
         }
 

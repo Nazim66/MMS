@@ -38,10 +38,23 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.24/dataRender/datetime.js"></script>
 
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://kit.fontawesome.com/e19c476714.js"></script>
+
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
 <br />
 <br />
 
-<b>Total Expenses Of Current Month:</b><input id="totalExpenses" style="width:100px;" class="form-control" type="text" />
+<b>Total Expenses Of Current Month:</b>
+<input id="totalExpenses" style="width:100px;" class="form-control" type="text" />
 
 
 <div style="float:right;margin-bottom:15px;">
@@ -61,7 +74,7 @@
         <input id="inputFieldForExpenseAmount" class='form-control' type="number" />
         <br>
         <label>Date</label>
-        <input id="inputFieldForExpenseDate" class='form-control' type="date" />
+        <input id="inputFieldForExpenseDate" class='form-control' type="text" />
         <br>
         <label>Expense Details</label><br>
         <textarea id="inputFieldForExpenseDetails" col="5" rows="5" class="form-control"></textarea>
@@ -83,6 +96,7 @@
                 <th>Member Name</th>
                 <th>Amount</th>
                 <th>Expense Detail</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody></tbody>

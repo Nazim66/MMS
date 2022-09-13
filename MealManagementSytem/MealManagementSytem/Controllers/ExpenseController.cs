@@ -24,9 +24,11 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult ExpensesByAll()
         {
+            var date = System.DateTime.Now;
             var expensesbyAll =
                             from d in _context.Expenses
                             join m in _context.Members on d.MemberId equals m.MemberId
+                            where d.Date.Month == date.Month
                             select new ExpenseDetails
                             {
                                 ExpenseId = d.ExpenseId,
@@ -57,10 +59,45 @@ namespace MealManagementSytem.Controllers
         }
 
         public IActionResult AddExpensesAmount(Expense prm)
+        //{
+        //    var Status = "";
+        //    if (prm.ExpenseId.ToString() == null)
+        //    {
+        //        prm.ExpenseId = 0;
+        //    }
+        //    if (prm.ExpenseId == 0)
+        //    {
+        //        _context.Add(prm);
+        //        Status = "Successfully Saved to the Database";
+        //    }
+        //    else
+        //    {
+        //        _context.Expenses.Update(prm);
+        //        Status = "Successfully Update to the Database";
+        //    }
+        //    _context.SaveChanges();
+        //    return new JsonResult(Status);
+        //}
         {
             _context.Add(prm);
             _context.SaveChanges();
             return new JsonResult(new { Status = "Successfully Added" });
+        }
+
+        public IActionResult UpdateExpenseById(int id)
+        {
+            var expenseInfo = _context.Expenses.FirstOrDefault(e => e.ExpenseId == id);
+            return Json(expenseInfo);
+        }
+
+        public IActionResult ExpenseRemove(int id)
+        {
+            var status = "";
+            var remove = _context.Expenses.FirstOrDefault(x => x.ExpenseId == id);
+            _context.Expenses.Remove(remove);
+            _context.SaveChanges();
+            status = "Successfully Deleted";
+            return Json(status);
         }
     }
 }
