@@ -52,22 +52,21 @@ function UpdateMember(data) {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            PopulateEditData(data);
+    $.ajax({
+        url: data,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#tblData').DataTable().ajax.reload();
+        }
+    });
+          PopulateEditData(data);
         }
     });
 }
 
 
 function DeleteMember(data) {
-
-    //$.ajax({
-    //    url: data,
-    //    type: 'GET',
-    //    dataType: 'json',
-    //    success: function (data) {
-    //        $('#tblData').DataTable().ajax.reload();
-    //    }
-    //});
 
     swal({
         title: "Are you sure, you want to delete",

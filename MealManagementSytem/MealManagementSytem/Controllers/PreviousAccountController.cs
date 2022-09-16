@@ -57,17 +57,41 @@ namespace MealManagementSytem.Controllers
             var checkValidation = _context.PreviousAccounts.FirstOrDefault(e => e.MemberId == id && e.Date.Month == date.Month);
             if (checkValidation == null)
             {
-                _context.Add(prm);
+
+                if (prm.PreviousAccountId == 0)
+                {
+                    _context.Add(prm);
+                    Status = "Successfully Saved to the Database";
+                }
+                else
+                {
+                    _context.PreviousAccounts.Update(prm);
+                    Status = "Successfully Update to the Database";
+                }
                 _context.SaveChanges();
-                Status = "Data is Saved Successfully";
+                return new JsonResult(Status);
+
             }
             else
             {
-                Status = "Data already exists!";
+                return new JsonResult(Status = "Already Data Exists for Current Month!!");
             }
+        }
 
-            return Json(Status);
-               
+        public IActionResult UpdatePreviousAccountById(int id)
+        {
+            var previousAccountInfo = _context.PreviousAccounts.FirstOrDefault(e => e.PreviousAccountId == id);
+            return Json(previousAccountInfo);
+        }
+
+        public IActionResult PreviousAccountRemove(int id)
+        {
+            var status = "";
+            var remove = _context.PreviousAccounts.FirstOrDefault(x => x.PreviousAccountId == id);
+            _context.PreviousAccounts.Remove(remove);
+            _context.SaveChanges();
+            status = "Successfully Deleted";
+            return Json(status);
         }
     }
 }

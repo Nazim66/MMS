@@ -38,6 +38,15 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.24/dataRender/datetime.js"></script>
 
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://kit.fontawesome.com/e19c476714.js"></script>
+
 <div style="float:right;margin-bottom:15px;">
     <a id="popup" class="btn btn-sm btn-success text-white" onclick="showPopup()"><i class="fa fa-plus text-white" aria-hidden="true"></i>New</a>
 </div>
@@ -45,6 +54,7 @@
 <div id="popupDiv" style="display:none">
     <div>
         <div>
+            <input id="inputFieldForPreviousAccountId" class='form-control' type="hidden" />
             <label>Name</label>
             <select style="width:100%" class="form-control" id="ddlNameList">
                 <option value="0">Select Name</option>
@@ -54,8 +64,8 @@
         <label>Previous Amount</label>
         <input id="inputFieldForPreviousAmount" class='form-control' type="number" />
         @*<br>
-        <label>Date</label>
-        <input id="inputFieldForPreviousDate" class='form-control' type="date" />*@
+            <label>Date</label>
+            <input id="inputFieldForPreviousDate" class='form-control' type="date" />*@
         <br>
         <button type="submit" class="btn btn-sm btn-primary" onclick="SavePreviousAmount()">Confirm</button>
         <button type="submit" class="btn btn-sm btn-danger" onclick="closePopup()">Close</button>
@@ -70,6 +80,7 @@
                 <th>Member Id</th>
                 <th>Member Name</th>
                 <th>Amount</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody></tbody>

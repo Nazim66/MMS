@@ -69,18 +69,47 @@ namespace MealManagementSytem.Controllers
             var totalDeposits = _context.Deposites.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.Amount);
             return Json(totalDeposits);
         }
-
+        //Find All Member Nam List
         public IActionResult GetMemberName()
         {
             var memberList = _context.Members.ToList();
             return Json(memberList);
         }
 
+        //Add Deposit Amount to The Database
         public IActionResult AddDepositedAmount(Deposite prm)
         {
-            _context.Add(prm);
+            var Status = "";
+
+            if (prm.DepositeId == 0)
+            {
+                _context.Add(prm);
+                Status = "Successfully Saved to the Database";
+            }
+            else
+            {
+                _context.Deposites.Update(prm);
+                Status = "Successfully Update to the Database";
+            }
             _context.SaveChanges();
-            return new JsonResult(new { Status = "Successfully Added" });
+            return new JsonResult(Status);
         }
+
+        public IActionResult UpdateDepositeById(int id)
+        {
+            var depositeInfo = _context.Deposites.FirstOrDefault(e => e.DepositeId == id);
+            return Json(depositeInfo);
+        }
+
+        public IActionResult DepositeRemove(int id)
+        {
+            var status = "";
+            var remove = _context.Deposites.FirstOrDefault(x => x.DepositeId == id);
+            _context.Deposites.Remove(remove);
+            _context.SaveChanges();
+            status = "Successfully Deleted";
+            return Json(status);
+        }
+
     }
 }

@@ -45,11 +45,43 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.24/dataRender/datetime.js"></script>
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://kit.fontawesome.com/e19c476714.js"></script>
+
 <br />
 <br />
 
-<b>Total Meals Of Current Month:</b><input id="totalMeals" style="width:100px;" class="form-control" type="text" />
+<b>Total Meals Of Current Month:</b>
+<input id="totalMeals" style="width:100px;" class="form-control" type="text" />
 
+
+<div id="popupDiv" style="display:none">
+    <input id="inputFieldForMealId" class='form-control' type="hidden" />
+    <label>Name</label>
+    <select style="width:100%" class="form-control" id="ddlNameList">
+        <option value="0">Select Name</option>
+    </select>
+    <label>Lunch</label>
+    <input id="inputFieldForLunch" placeholder="Lunch" class='form-control' type='number' />
+    <br />
+    <label>Guest Lunch</label>
+    <input id="inputFieldForGuestLunch" placeholder="Guest Lunch" class='form-control' type='number' />
+    <br />
+    <label>Dinner</label>
+    <input id="inputFieldForDinner" placeholder="Dinner" class='form-control' type='number' />
+    <br />
+    <label>Guest Dinner</label>
+    <input id="inputFieldForGuestDinner" placeholder="Dinner" class='form-control' type='number' />
+    <br />
+    <input id="inputFieldForDate" class='form-control' type='date' />
+    <br />
+    <button type="submit" class="btn btn-sm btn-primary" onclick="SaveMealDetail()">Confirm</button>
+</div>
 
 <div class="p-4 border rounded">
     <table id="tblData" class="table table-striped table-bordered" data-page-length='31'>
@@ -62,6 +94,7 @@
                 <th>Guest Lunch</th>
                 <th>Dinner</th>
                 <th>Guest Dinner</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody></tbody>

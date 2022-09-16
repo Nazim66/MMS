@@ -54,8 +54,6 @@ function generateFieldForDinner() {
 }
 
 function SaveMealDetail() {
-    //var guestLunchLength = $('#inputFieldForLunch').val().length;
-    //var guestDinnerLength = $('#inputFieldForDinner').val().length;
     
     var data = getData();
         $.ajax({
@@ -73,9 +71,7 @@ function SaveMealDetail() {
                 alert(result);
             }
         });
-
 }
-
 
 function getData() {
 

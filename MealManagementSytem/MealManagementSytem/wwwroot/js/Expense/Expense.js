@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    $("#inputFieldForExpenseDate").datepicker();
     $("#totalExpenses").prop('disabled', true);
     GetDepositCalculation();
     $('#tblData').DataTable({
@@ -73,11 +72,11 @@ function PopulateEditData(data) {
     });
     setTimeout(function () {
         clearField();
-        console.warn(data);
         makeDropdownforName();
         $('#ddlNameList').val(data.memberId);
+        $('#inputFieldForExpenseId').val(data.expenseId);
         $('#inputFieldForExpenseAmount').val(data.amount);
-        var dt_to = $.datepicker.formatDate('mm-dd-yy', new Date());
+        var dt_to = moment(data.date).format("YYYY-MM-DD");
         $('#inputFieldForExpenseDate').val(dt_to);
         $('#inputFieldForExpenseDetails').val(data.bazarDetail);
     }, 20)
@@ -98,20 +97,20 @@ function clearField() {
 function DeleteExpense(data) {
 
     swal({
-        title: "are you sure, you want to delete",
-        text: "once delete, you will never recover the data!",
+        title: "Are you sure, you want to delete",
+        text: "Once Delete, You will never recover the data!",
         icon: "warning",
         buttons: true,
-        dangermode: true
-    }).then((willdelete) => {
-        if (willdelete) {
+        dangerMode: true
+    }).then((willDelete) => {
+        if (willDelete) {
             $.ajax({
-                type: "delete",
+                type: "DELETE",
                 url: data,
                 success: function (data) {
                     if (data) {
                         toastr.success(data);
-                        $('#tbldata').datatable().ajax.reload();
+                        $('#tblData').DataTable().ajax.reload();
                     }
                     else {
                         toastr.error(data.message);
@@ -166,7 +165,7 @@ function SaveExpensesAmount() {
         dataType: "json",
         async: true,
         success: function (result) {
-            alert('Successfully Added to the Database');
+            alert(result);
             closePopup();
             $('#tblData').DataTable().ajax.reload();
         },
@@ -180,6 +179,12 @@ function SaveExpensesAmount() {
 function getData() {
     obj = new Object();
 
+    var expenseId = $('#inputFieldForExpenseId').val();
+    if (expenseId == "" || expenseId == null) {
+        expenseId = 0;
+    }
+    obj.ExpenseId = expenseId;
+
     var memberId = $('#ddlNameList option:selected').val();
     obj.MemberId = memberId;
 
@@ -191,7 +196,6 @@ function getData() {
 
     var bazarDetail = $('#inputFieldForExpenseDetails').val();
     obj.BazarDetail = bazarDetail;
-
 
     return obj;
 }

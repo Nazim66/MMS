@@ -59,29 +59,21 @@ namespace MealManagementSytem.Controllers
         }
 
         public IActionResult AddExpensesAmount(Expense prm)
-        //{
-        //    var Status = "";
-        //    if (prm.ExpenseId.ToString() == null)
-        //    {
-        //        prm.ExpenseId = 0;
-        //    }
-        //    if (prm.ExpenseId == 0)
-        //    {
-        //        _context.Add(prm);
-        //        Status = "Successfully Saved to the Database";
-        //    }
-        //    else
-        //    {
-        //        _context.Expenses.Update(prm);
-        //        Status = "Successfully Update to the Database";
-        //    }
-        //    _context.SaveChanges();
-        //    return new JsonResult(Status);
-        //}
         {
-            _context.Add(prm);
+            var Status = "";
+
+            if (prm.ExpenseId == 0)
+            {
+                _context.Add(prm);
+                Status = "Successfully Saved to the Database";
+            }
+            else
+            {
+                _context.Expenses.Update(prm);
+                Status = "Successfully Update to the Database";
+            }
             _context.SaveChanges();
-            return new JsonResult(new { Status = "Successfully Added" });
+            return new JsonResult(Status);
         }
 
         public IActionResult UpdateExpenseById(int id)

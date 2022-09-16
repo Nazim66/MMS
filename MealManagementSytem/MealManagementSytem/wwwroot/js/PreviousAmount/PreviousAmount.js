@@ -19,7 +19,22 @@
             { "data": "date", "width": "25%" },
             { "data": "memberId", "width": "25%" },
             { "data": "memberName", "width": "25%" },
-            { "data": "amount", "width": "25%" }
+            { "data": "amount", "width": "25%" },
+            {
+                "data": "previousAccountId", "width": "5%",
+                "render": function (data) {
+                    return `
+                            <div class="text-center">
+                                <a style="color:black" onclick=UpdatePreviousAccount("/PreviousAccount/UpdatePreviousAccountById/${data}") >
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a style="color:black" id="btnDelete" onclick=DeletePreviousAccount("/PreviousAccount/PreviousAccountRemove/${data}")>
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                           </div>`;
+
+                }, "width": "20%"
+            }
            
 
         ],
@@ -30,6 +45,81 @@
         ]
     });
 });
+
+
+function UpdatePreviousAccount(data) {
+
+    $.ajax({
+        url: data,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $.ajax({
+                url: data,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    $('#tblData').DataTable().ajax.reload();
+                }
+            });
+            PopulateEditData(data);
+        }
+    });
+}
+
+
+function DeletePreviousAccount(data) {
+
+    swal({
+        title: "Are you sure, you want to delete",
+        text: "Once Delete, You will never recover the data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "DELETE",
+                url: data,
+                success: function (data) {
+                    if (data) {
+                        toastr.success(data);
+                        $('#tblData').DataTable().ajax.reload();
+                    }
+                    else {
+                        toastr.error(data.message);
+                    }
+                }
+            });
+        }
+    });
+}
+
+
+function PopulateEditData(data) {
+    $("#popupDiv").dialog({
+        width: 400,
+        height: 450,
+        modal: true,
+        dialogClass: 'dialogWithDropShadow'
+    });
+    setTimeout(function () {
+        clearField();
+        makeDropdownforName();
+        $('#ddlNameList').val(data.memberId);
+        $('#inputFieldForPreviousAccountId').val(data.previousAccountId);
+        $('#inputFieldForPreviousAmount').val(data.amount);
+    }, 20)
+
+}
+
+
+function clearField() {
+
+    $('#inputFieldForPreviousAmount').val("");
+    $('#ddlNameList').val(0);
+
+}
 
 var count = 0;
 function showPopup() {
@@ -42,22 +132,27 @@ function showPopup() {
     });
 
     setTimeout(function () {
-        var select = $("#ddlNameList");
-        $.ajax({
-            url: "PreviousAccount/GetPreviousAmountMemberName",
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                var datavalue = data;
-                var serverResponse = datavalue;
-                contentType: "application/json";
-                $.each(serverResponse, function (i, serverResponse) {
-                    select.append("<option value='" + serverResponse.memberId + "'>" + serverResponse.memberName + "</option>")
-                });
-            }
-        });
+        clearField();
+        makeDropdownforName();
     }, 20)
 
+}
+
+function makeDropdownforName() {
+    var select = $("#ddlNameList");
+    $.ajax({
+        url: "Expense/GetExpensesMemberName",
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var datavalue = data;
+            var serverResponse = datavalue;
+            contentType: "application/json";
+            $.each(serverResponse, function (i, serverResponse) {
+                select.append("<option value='" + serverResponse.memberId + "'>" + serverResponse.memberName + "</option>")
+            });
+        }
+    });
 }
 
 function SavePreviousAmount() {
@@ -84,14 +179,15 @@ function SavePreviousAmount() {
 function getData() {
     obj = new Object();
 
+    var previousAccountId = $('#inputFieldForPreviousAccountId').val();
+    if (previousAccountId == "" || previousAccountId == null) {
+        previousAccountId = 0;
+    }
+    obj.PreviousAccountId = previousAccountId;
     var memberId = $('#ddlNameList option:selected').val();
     obj.MemberId = memberId;
-
     var amount = $('#inputFieldForPreviousAmount').val();
     obj.Amount = amount;
-
-    //var date = $('#inputFieldForPreviousDate').val();
-   // obj.Date = date;
 
     return obj;
 }

@@ -1,6 +1,7 @@
 ﻿using MealManagementSytem.Data;
 using MealManagementSytem.Entities;
 using MealManagementSytem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
 {
+    [Authorize]
     public class MealController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -55,6 +57,7 @@ namespace MealManagementSytem.Controllers
                            join m in _context.Members on c.MemberId equals m.MemberId
                            select new AllMeal
                            {
+                               MealId = c.MealId,
                                GuestDinner = c.GuestDinner,
                                GuestLunch = c.GuestLunch,
                                MemberName = m.MemberName,
@@ -85,41 +88,73 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult AddMealDetails(MealDetail prm)
         {
-            var dateForToday = System.DateTime.Now;
             var Status = "";
-            var id = HttpContext.Session.GetString("UserId");
-            var checkValidation = _context.Details.FirstOrDefault(x => x.MemberId == Convert.ToInt32(id) && x.Date.Date == dateForToday.Date);
-            if(prm.GuestLunch >= 0 && prm.GuestDinner >= 0)
+            if(prm.MealId == 0)
             {
-                var guestLunchLength = prm.GuestLunch;
-                var guestDinnerLength = prm.GuestDinner;
-                var length1 = guestLunchLength.ToString().Length;
-                var length2 = guestDinnerLength.ToString().Length;
-
-                if (checkValidation == null)
+                var dateForToday = System.DateTime.Now;
+                var id = HttpContext.Session.GetString("UserId");
+                var checkValidation = _context.Details.FirstOrDefault(x => x.MemberId == Convert.ToInt32(id) && x.Date.Date == dateForToday.Date);
+                if (prm.GuestLunch >= 0 && prm.GuestDinner >= 0)
                 {
-                    if (length1 <= 1 || length2 <= 1)
+                    var guestLunchLength = prm.GuestLunch;
+                    var guestDinnerLength = prm.GuestDinner;
+                    var length1 = guestLunchLength.ToString().Length;
+                    var length2 = guestDinnerLength.ToString().Length;
+
+                    if (checkValidation == null)
                     {
-                        prm.MemberId = Convert.ToInt32(id);
-                        _context.Add(prm);
+                        if (length1 <= 1 || length2 <= 1)
+                        {
+                            prm.MemberId = Convert.ToInt32(id);
+                            _context.Add(prm);
+                            _context.SaveChanges();
+                            Status = "Data Successfully Saved!";
+                        }
+                        else
+                        {
+                            Status = "You Should Give 1 Digit!!!";
+                        }
+
+                    }
+                    else
+                    {
+                        Status = "Already Inserted Todays Meal";
+
+                    }
+                }
+                else
+                {
+                    Status = "You are Given Negetive Number of Meal For Guest!";
+                }
+            }
+            else
+            {
+                if (prm.GuestLunch >= 0 && prm.GuestDinner >= 0 && prm.Lunch >= 0 && prm.Dinner >= 0)
+                {
+                    var guestLunchLength = prm.GuestLunch;
+                    var lunchLength = prm.Lunch;
+                    var dinnerLength = prm.Dinner;
+                    var guestDinnerLength = prm.GuestDinner;
+                    var gstLunch = guestLunchLength.ToString().Length;
+                    var lunch = lunchLength.ToString().Length;
+                    var gstDinner = guestDinnerLength.ToString().Length;
+                    var dnr = dinnerLength.ToString().Length;
+
+                    if (lunch <= 1 && gstLunch <= 1 && dnr <= 1 && gstDinner <= 1)
+                    {
+                        _context.Details.Update(prm);
                         _context.SaveChanges();
-                        Status = "Data Successfully Saved!";
+                        Status = "Data Updated Successfully!";
                     }
                     else
                     {
                         Status = "You Should Give 1 Digit!!!";
                     }
-
                 }
                 else
                 {
-                    Status = "Already Inserted Todays Meal";
-
+                    Status = "You are Given Negetive Number of Meal For Guest!";
                 }
-            }
-            else
-            {
-                Status = "You are Given Negetive Number of Meal For Guest!";
             }
 
             return new JsonResult(Status);
@@ -130,6 +165,22 @@ namespace MealManagementSytem.Controllers
         {
 
             return null;
+        }
+
+        public IActionResult UpdateMealById(int id)
+        {
+            var mealDetails = _context.Details.FirstOrDefault(x => x.MealId == id);
+            return Json(mealDetails);
+        }
+
+        public IActionResult MealRemove(int id)
+        {
+            var status = "";
+            var remove = _context.Details.FirstOrDefault(x => x.MealId == id);
+            _context.Details.Remove(remove);
+            _context.SaveChanges();
+            status = "Successfully Deleted";
+            return Json(status);
         }
 
     }

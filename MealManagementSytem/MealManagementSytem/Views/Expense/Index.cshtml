@@ -47,8 +47,6 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://kit.fontawesome.com/e19c476714.js"></script>
 
-<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
-<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 
 <br />
 <br />
@@ -64,6 +62,7 @@
 <div id="popupDiv" style="display:none">
     <div>
         <div>
+            <input id="inputFieldForExpenseId" class='form-control' type="hidden" />
             <label>Name</label>
             <select style="width:100%" class="form-control" id="ddlNameList">
                 <option value="0">Select Name</option>
@@ -74,7 +73,7 @@
         <input id="inputFieldForExpenseAmount" class='form-control' type="number" />
         <br>
         <label>Date</label>
-        <input id="inputFieldForExpenseDate" class='form-control' type="text" />
+        <input id="inputFieldForExpenseDate" class='form-control' type="date" />
         <br>
         <label>Expense Details</label><br>
         <textarea id="inputFieldForExpenseDetails" col="5" rows="5" class="form-control"></textarea>
