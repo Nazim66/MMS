@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
 {
-    [Authorize]
+    
     public class MealController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,6 +20,7 @@ namespace MealManagementSytem.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Index()
         {
             return View();
@@ -45,6 +46,7 @@ namespace MealManagementSytem.Controllers
             var totalIndividualMeals = (totalIndividualLunch + totalIndividualGuestLunch + totalIndividualDinner + totalIndividualGuestDinner);
             return Json(totalIndividualMeals);
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult AllMeals()
         {
             return View();

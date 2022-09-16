@@ -32,30 +32,54 @@ namespace MealManagementSytem.Controllers
         [HttpPost]
         public  IActionResult Index(Member prm)
         {
-            ClaimsIdentity identity = null;
-            bool IsAuthenticated = false;
-            var checkLogin = _context.Members.FirstOrDefault(e => e.MemberId == prm.MemberId && e.MemberPass == prm.MemberPass);
-            if (checkLogin == null || checkLogin.ToString() == "")
+            try
             {
-                ViewBag.error = "Your User Id or Password Is Incorrect!";
-            }
-            else
-            {
-                HttpContext.Session.SetString("UserId", prm.MemberId.ToString());
-                identity = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.Name, checkLogin.MemberId.ToString()),
-                    new Claim(ClaimTypes.Role, checkLogin.MemberType)
-                }, CookieAuthenticationDefaults.AuthenticationScheme);
-                IsAuthenticated = true;
-                if(IsAuthenticated == true)
+                ClaimsIdentity identity = null;
+                bool IsAuthenticated = false;
+                var checkLogin = _context.Members.FirstOrDefault(e => e.MemberId == prm.MemberId && e.MemberPass == prm.MemberPass);
+                if (checkLogin == null || checkLogin.ToString() == "")
                 {
-                    var principle = new ClaimsPrincipal(identity);
-                    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle);
-                    return RedirectToAction("Index", "Home");
+                    ViewBag.error = "Your User Id or Password Is Incorrect!";
                 }
-                
+                else
+                {
+                    HttpContext.Session.SetString("UserId", prm.MemberId.ToString());
+                    //identity = new ClaimsIdentity(new[] {
+                    //    new Claim(ClaimTypes.Name, checkLogin.MemberId.ToString()),
+                    //    new Claim(ClaimTypes.Role, checkLogin.MemberType)
+                    //}, CookieAuthenticationDefaults.AuthenticationScheme);
+                    //IsAuthenticated = true;
+                    //if(IsAuthenticated == true)
+                    //{
+                    //    var principle = new ClaimsPrincipal(identity);
+                    //    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle);
+                    //    return RedirectToAction("Index", "Home");
+                    //}
+
+                    var claims = new List<Claim>
+                     {
+                         new Claim(ClaimTypes.Role, checkLogin.MemberType)
+                     };
+
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    HttpContext.SignInAsync(
+                       CookieAuthenticationDefaults.AuthenticationScheme,
+                       new ClaimsPrincipal(claimsIdentity),
+                       new AuthenticationProperties
+                       {
+
+                       });
+                    return RedirectToAction("Index", "Home");
+
+                }
+                return View();
             }
-            return View();
+            catch(Exception e)
+            {
+                throw e;
+            }
+            
         }
 
 
