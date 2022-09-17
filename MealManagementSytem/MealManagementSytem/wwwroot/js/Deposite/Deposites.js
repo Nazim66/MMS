@@ -4,6 +4,7 @@
     $('#tblData').DataTable({
         "paging": true,
         "deferRender": true,
+        "order": [[0, 'desc']],
         "ajax": {
             "url": "Deposite/IndividualDeposites",
             "dataSrc": ''
@@ -20,12 +21,12 @@
         ],
         "columns": [
 
-            { "data": "date", "width": "25%" },
-            { "data": "memberId", "width": "25%", "visible":false },
-            { "data": "amount", "width": "25%" }
+            { "data": "date", "width": "15%" },
+            { "data": "amount", "width": "15%" },
+            { "data": "memberId", "width": "15%", "visible": false },
 
         ],
-        dom: 'lfrtBip',
+        dom: 'Bfrtip',
         select: true,
         buttons: [
             'copy', 'excel', 'pdf', 'csv'

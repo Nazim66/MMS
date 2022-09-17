@@ -3,6 +3,7 @@
         "paging": true,
         "deferRender": true,
         "order": [[0, 'desc']],
+        "responsive": true,
         "ajax": {
             "url": "Member/AllMember",
             "dataSrc": ''
@@ -38,6 +39,7 @@
 
         ],
         dom: 'lfrtBip',
+        select: true,
         buttons: [
             'copy', 'excel', 'pdf', 'csv'
         ]
@@ -118,10 +120,9 @@ function Delete(data) {
 
 
 function showPopup() {
-
     $("#popupDiv").dialog({
-        width: 400,
-        height: 450,
+        width: 320,
+        height: 400,
         modal: true,
         dialogClass: 'dialogWithDropShadow'
     });

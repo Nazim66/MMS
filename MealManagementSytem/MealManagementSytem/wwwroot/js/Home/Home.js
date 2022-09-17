@@ -16,7 +16,6 @@
             },
         ],
         "columns": [
-
             { "data": "date", "width": "15%" },
             { "data": "memberName", "width": "15%" },
             { "data": "memberId", "width": "15%", "visible": false },
@@ -25,7 +24,7 @@
             { "data": "dinner", "width": "15%" },
             { "data": "guestDinner", "width": "15%" }
         ],
-        dom: 'lfrtBip',
+        dom: 'Bfrtip',
         select: true,
         buttons: [
             'copy', 'excel', 'pdf', 'csv'

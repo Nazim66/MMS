@@ -1,5 +1,6 @@
 ﻿using MealManagementSytem.Data;
 using MealManagementSytem.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
 {
+    [Authorize(Roles = "Admin, User")]
     public class OverallCalculationController : Controller
     {
         private readonly ApplicationDbContext _context;

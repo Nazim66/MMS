@@ -1,6 +1,7 @@
 ﻿using MealManagementSytem.Data;
 using MealManagementSytem.Entities;
 using MealManagementSytem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
 {
+    
     public class DepositeController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -18,6 +20,7 @@ namespace MealManagementSytem.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Index()
         {
             return View();
@@ -38,7 +41,7 @@ namespace MealManagementSytem.Controllers
             var totalIndividualDeposits = _context.Deposites.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year && x.MemberId == Convert.ToInt32(id)).Sum(e => e.Amount).ToString();
             return Json(totalIndividualDeposits);
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult AllDeposits()
         {
             return View();

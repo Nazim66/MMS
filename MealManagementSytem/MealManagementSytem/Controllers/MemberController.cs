@@ -1,5 +1,6 @@
 ﻿using MealManagementSytem.Data;
 using MealManagementSytem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MemberController : Controller
     {
 

@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var checkLoginSession = @HttpContextAccessor.HttpContext.Session.GetString("UserId"); ;
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,82 +11,239 @@
     <title>@ViewData["Title"] - MealManagementSytem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+
 
     <style>
-        .dropdown-menu {
-            background-color: lightslategrey;
+        /* UTILITIES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            margin-top: -5px;
+        }
+
+        body {
+            font-family: cursive;
+            width: 100%;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        li {
+            list-style: none;
+        }
+        /* NAVBAR STYLING STARTS */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: teal;
+            color: #fff;
+            height: 50px;
+        }
+
+        .nav-links a {
+            color: #fff;
+        }
+        /* LOGO */
+        .logo {
+            font-size: 28px;
+            margin-top: -30px;
+        }
+        /* NAVBAR MENU */
+        .menu {
+            display: flex;
+            gap: 1em;
+            font-size: 18px;
+        }
+
+            /*     .menu li:hover {
+                background-color: #4c9e9e;
+                border-radius: 5px;
+                transition: 0.3s ease;
+            }*/
+
+            .menu li {
+                padding: 5px 14px;
+            }
+        /* DROPDOWN MENU */
+        .services {
+            position: relative;
         }
 
         .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-        .dropdown:hover .dropdown-menu {
-            display: block;
+            background-color: rgb(1, 139, 139);
+            padding: 1em 0;
+            position: absolute; /*WITH RESPECT TO PARENT*/
+            display: none;
+            border-radius: 8px;
+            top: 35px;
         }
 
+            .dropdown li + li {
+                margin-top: 10px;
+            }
+
+            .dropdown li {
+                padding: 0.5em 1em;
+                width: 8em;
+                text-align: center;
+            }
+
+                .dropdown li:hover {
+                    background-color: #4c9e9e;
+                }
+
+        .services:hover .dropdown {
+            display: block;
+        }
+        /*RESPONSIVE NAVBAR MENU STARTS*/
+        /* CHECKBOX HACK */
+        input[type=checkbox] {
+            display: none;
+        }
+        /*HAMBURGER MENU*/
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            user-select: none;
+        }
+        /* APPLYING MEDIA QUERIES */
+        @@media (max-width: 768px) {
+            .menu {
+                display: none;
+                position: absolute;
+                background-color: teal;
+                right: 0;
+                left: 0;
+                text-align: center;
+                padding: 16px 0;
+            }
+
+                .menu li:hover {
+                    display: inline-block;
+                    background-color: #4c9e9e;
+                    transition: 0.3s ease;
+                }
+
+                .menu li + li {
+                    margin-top: 12px;
+                }
+
+            input[type=checkbox]:checked ~ .menu {
+                display: block;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .dropdown {
+                left: 50%;
+                overflow: no-display;
+                top: 30px;
+                transform: translateX(35%);
+            }
+
+                .dropdown li:hover {
+                    background-color: #4c9e9e;
+                }
+        }
+
+        @@media (max-width: 320px) {
+            .menu {
+                margin-top:-8px;
+                font-size:12px;
+            }
+            .navbar{
+               /* width:1140px;*/
+            }
+        }
     </style>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="~/lib/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark " id="navbarNavDropdown">
-            <a class="navbar-brand" href="#">Meal Management System</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+        <nav class="navbar">
+            <div class="logo">MMS</div>
+            <ul class="nav-links">
+                <input type="checkbox" id="checkbox_toggle" />
+                <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+                <div class="menu">
+                <li>
+                    <a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                @if (checkLoginSession != null)
+                {
+                    <li>
+                        <a asp-controller="Member" asp-action="Index">Members</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Member" asp-action="Index">Members</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="services">
+                        <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Meals
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-area="" asp-controller="Meal" asp-action="Index">Individual Meal </a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Meal" asp-action="AllMeals">All Meals</a>
-                        </div>
+                        <!-- DROPDOWN MENU -->
+                        <ul class="dropdown">
+                            <li>
+                                <a asp-area="" asp-controller="Meal" asp-action="Index">Indiv. Meal </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Meal" asp-action="AllMeals">All Meals</a>
+                            </li>
+                        </ul>
                     </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="services">
+                        <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Deposits
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" asp-area="" asp-controller="Deposite" asp-action="Index">Individual Deposit </a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Deposite" asp-action="AllDeposits">All Deposits</a>
-                        </div>
+                        <!-- DROPDOWN MENU -->
+                        <ul class="dropdown">
+                            <li>
+                                <a asp-area="" asp-controller="Deposite" asp-action="Index">Indiv.Deposit </a>
+                            </li>
+                            <li>
+                                <a asp-area="" asp-controller="Deposite" asp-action="AllDeposits">Deposits</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Expense" asp-action="Index">Expenses</a>
+                    <li class="services">
+                        <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Accounts
+                        </a>
+                        <!-- DROPDOWN MENU -->
+                        <ul class="dropdown">
+                            <li>
+                                <a asp-controller="PreviousAccount" asp-action="Index">Pre.Amount</a>
+                            </li>
+                            <li>
+                                <a asp-controller="OverallCalculation" asp-action="Index">Calculation</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="PreviousAccount" asp-action="Index">Previous Amount</a>
+                    <li>
+                        <a asp-controller="Expense" asp-action="Index">Expenses</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="OverallCalculation" asp-action="Index">Overall Calculation</a>
+                    <li>
+                        <a asp-controller="Logout" asp-action="Index">Logout</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Login" asp-action="Index">Bazar Schedule</a>
+                }
+                else
+                {
+                    <li>
+                        <a asp-controller="Login" asp-action="Index">Login</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Login" asp-action="Index">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Logout" asp-action="Index">Logout</a>
-                    </li>
-                </ul>
-            </div>
+                }
+                </div>
+            </ul>
         </nav>
     </header>
     <div class="container">

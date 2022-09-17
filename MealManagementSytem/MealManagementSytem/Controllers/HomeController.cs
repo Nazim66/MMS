@@ -25,12 +25,6 @@ namespace MealManagementSytem.Controllers
         {
             return View();
         }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public IActionResult TodaysMeal()
         {
             var date = System.DateTime.Now;

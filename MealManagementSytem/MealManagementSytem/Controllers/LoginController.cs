@@ -35,7 +35,6 @@ namespace MealManagementSytem.Controllers
             try
             {
                 ClaimsIdentity identity = null;
-                bool IsAuthenticated = false;
                 var checkLogin = _context.Members.FirstOrDefault(e => e.MemberId == prm.MemberId && e.MemberPass == prm.MemberPass);
                 if (checkLogin == null || checkLogin.ToString() == "")
                 {
@@ -44,18 +43,6 @@ namespace MealManagementSytem.Controllers
                 else
                 {
                     HttpContext.Session.SetString("UserId", prm.MemberId.ToString());
-                    //identity = new ClaimsIdentity(new[] {
-                    //    new Claim(ClaimTypes.Name, checkLogin.MemberId.ToString()),
-                    //    new Claim(ClaimTypes.Role, checkLogin.MemberType)
-                    //}, CookieAuthenticationDefaults.AuthenticationScheme);
-                    //IsAuthenticated = true;
-                    //if(IsAuthenticated == true)
-                    //{
-                    //    var principle = new ClaimsPrincipal(identity);
-                    //    var login = HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle);
-                    //    return RedirectToAction("Index", "Home");
-                    //}
-
                     var claims = new List<Claim>
                      {
                          new Claim(ClaimTypes.Role, checkLogin.MemberType)

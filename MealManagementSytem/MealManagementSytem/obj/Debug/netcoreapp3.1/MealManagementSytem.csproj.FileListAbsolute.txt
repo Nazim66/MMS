@@ -851,3 +851,4 @@ D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\bin\Debug\netcoreapp3
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Http.Features.dll
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\bin\Debug\netcoreapp3.1\System.IO.Pipelines.dll
+D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Partial\_CDN.cshtml.g.cs
