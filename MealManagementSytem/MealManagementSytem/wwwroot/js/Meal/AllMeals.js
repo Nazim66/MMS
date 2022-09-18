@@ -97,8 +97,8 @@ function DeleteMeal(data) {
 function PopulateEditData(data) {
 
     $("#popupDiv").dialog({
-        width: 400,
-        height: 450,
+        width: 250,
+        height: 280,
         modal: true,
         dialogClass: 'dialogWithDropShadow'
     });
@@ -144,7 +144,7 @@ function SaveMealDetail() {
         dataType: "json",
         async: true,
         success: function (result) {
-            alert(result);
+            toastr.success(result);
             closePopup();
             $('#tblData').DataTable().ajax.reload();
         },

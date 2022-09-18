@@ -5,17 +5,14 @@
         font-weight: bold;
     }
     @@media (max-width: 320px) {
-        .table-margin {
-            margin-top: 300px;
-        }
-        #popupDiv {
-            width: 200px;
-            height: 250px;
+
+        .table-responsive{
+            margin-top:200px!important;
         }
     }
     @@media (max-width: 768px) {
         .table-margin {
-            margin-top: 300px;
+            margin-top: 200px!important;
         }
     }
 
@@ -23,9 +20,8 @@
 <script src="~/js/Member/Member.js"></script>
 
 <partial name="~/Views/Partial/_CDN.cshtml" />
-<partial name="~/Views/Partial/_MemberAdd.cshtml" />
-
-<div class="row">
+<br/><br/>
+<div class="row mt-5 table-margin">
     <div class="table table-responsive col-xs-10 col-sm-11 pl-0 pr-0 mt-sm-5 ml-0" width:"100%">
         <br />
         <table id="tblData" class="table table-striped"  cellspacing="0" data-page-length='31'>

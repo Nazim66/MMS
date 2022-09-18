@@ -24,7 +24,7 @@
             { "data": "dinner", "width": "15%" },
             { "data": "guestDinner", "width": "15%" }
         ],
-        dom: 'Bfrtip',
+        dom: 'lfrtBip',
         select: true,
         buttons: [
             'copy', 'excel', 'pdf', 'csv'

@@ -34,7 +34,6 @@ namespace MealManagementSytem.Controllers
         {
             try
             {
-                ClaimsIdentity identity = null;
                 var checkLogin = _context.Members.FirstOrDefault(e => e.MemberId == prm.MemberId && e.MemberPass == prm.MemberPass);
                 if (checkLogin == null || checkLogin.ToString() == "")
                 {

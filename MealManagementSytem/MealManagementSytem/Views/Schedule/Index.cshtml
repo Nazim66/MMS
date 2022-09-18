@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    var dt = System.DateTime.Now;
+    ViewBag.month = dt.Month;
+    ViewBag.year = dt.Year;
+    ViewBag.days = DateTime.DaysInMonth(dt.Year, dt.Month);
+}
+
+<style>
+    #checkbox {
+        display: inline-block;
+    }
+
+    .div-schedule {
+        margin-left: 0px;
+        margin-top:200px;
+    }
+    .calender{
+        margin-top:400px;
+    }
+
+</style>
+
+<script src="~/js/Schedule/Schedule.js"></script>
+<partial name="~/Views/Partial/_CDN.cshtml" />
+<script type="text/javascript">
+    $(function () {
+        $("#txtDate").datepicker({
+            showOn: 'button',
+            buttonImageOnly: true,
+            buttonImage: 'images/calendar.gif',
+            dateFormat: 'dd/mm/yy',
+            minDate: new Date()
+        });
+    });
+</script>
+
+<div class="row div-schedule">
+    <div class="col-sm-4">
+        <div class="mt-5 mr-lg-5">
+            <select style="width:30%" class="form-control" id="ddlNameList">
+                <option value="0">Select Name</option>
+            </select>
+        </div>
+        <table class="mt-5" class="table table-striped table-responsive">
+            <tr style="width:400px">
+                <th>
+                    Select
+                </th>
+                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>
+                    Date
+                </th>
+            </tr>
+            @for(int i = 1; i<= @ViewBag.days ; i++ ){
+            <tr>
+                <td>
+                    <input id="checkbox" type="checkbox" />
+                </td>
+                <td></td>
+                <td>
+                    @i-@ViewBag.month-@ViewBag.year
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+    <div class="calender mt-5 col-sm-8" style="font-size:40px";>
+        <div id="txtDate"></div>
+    </div>
+</div>
+

@@ -824,9 +824,7 @@ D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Deposite\Index.cshtml.g.cs
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
-D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Login\Create.cshtml.g.cs
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
-D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Login\LoginCheck.cshtml.g.cs
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Meal\Index.cshtml.g.cs
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
@@ -852,3 +850,4 @@ D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\bin\Debug\netcoreapp3
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\bin\Debug\netcoreapp3.1\System.IO.Pipelines.dll
 D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Partial\_CDN.cshtml.g.cs
+D:\GitHub Bash\MMS\MealManagementSytem\MealManagementSytem\obj\Debug\netcoreapp3.1\Razor\Views\Schedule\Index.cshtml.g.cs

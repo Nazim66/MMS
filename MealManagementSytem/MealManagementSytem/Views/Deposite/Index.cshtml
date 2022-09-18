@@ -10,35 +10,32 @@
         -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         font-weight: bold;
     }
-    @@media (max-width: 768px) {
-        #tblData {
-            width: 100%;
-        }
-    }
     @@media (max-width: 320px) {
-        #tblData {
-            width: 200px;
+
+        .table-responsive {
+            margin-top: 20px !important;
         }
     }
-    @@media (max-width: 500px) {
-        #tblData {
-            width: 100px;
+
+    @@media (max-width: 768px) {
+        .table-margin {
+            margin-top: 200px !important;
         }
     }
 </style>
 
 <script src="~/js/Deposite/Deposites.js"></script>
-
 <partial name="~/Views/Partial/_CDN.cshtml" />
 
-
-<div class="mt-5">
-    <b>Total Deposits Of Current Month:</b>
-    <input id="totalIndividualDeposits" style="width:100px;" class="form-control" type="text" />
-    <br/>
-    <div class=" table table-responsive-sm border rounded">
-        <table id="tblData" class="table table-striped" data-page-length='31'>
-            <thead style="background:#008080">
+<br />
+<br />
+<div class="row mt-5 table-margin">
+    <div class="table table-responsive col-xs-10 col-sm-11 pl-0 pr-0 mt-sm-5 ml-0" width:"100%">
+        <b>Total Deposits Of Current Month:</b>
+        <input id="totalIndividualDeposits" style="width:100px;" class="form-control" type="text" />
+        <br />
+        <table id="tblData" class="table table-striped" cellspacing="0" data-page-length='31'>
+            <thead style="background:#008080!important">
                 <tr class="table-info">
                     <th>Date</th>
                     <th>Amount</th>

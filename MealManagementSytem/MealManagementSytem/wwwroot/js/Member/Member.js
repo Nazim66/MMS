@@ -97,8 +97,8 @@ function DeleteMember(data) {
 
 function PopulateEditData(data) {
     $("#popupDiv").dialog({
-        width: 400,
-        height: 450,
+        width: 320,
+        height: 400,
         modal: true,
         dialogClass: 'dialogWithDropShadow'
     });
@@ -113,11 +113,6 @@ function PopulateEditData(data) {
 
 
 }
-
-function Delete(data) {
-
-}
-
 
 function showPopup() {
     $("#popupDiv").dialog({
@@ -139,7 +134,7 @@ function SaveMember() {
         dataType: "json",
         async: true,
         success: function (result) {
-            alert(result);
+            toastr.success(result);
             closePopup();
             $('#tblData').DataTable().ajax.reload();
         },

@@ -10,19 +10,52 @@
         -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         font-weight: bold;
     }
+    @@media (max-width: 320px) {
+
+        .table-responsive {
+            margin-top: 20px !important;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .table-margin {
+            margin-top: 200px !important;
+        }
+    }
 </style>
 
 <script src="~/js/Deposite/AllDeposites.js"></script>
 
 <partial name="~/Views/Partial/_CDN.cshtml" />
-<div class="mt-5">
-    <b>Total deposits Of Current Month:</b>
-    <input id="totalDeposits" style="width:100px;" class="form-control" type="text" />
 
 
-    <div style="float:right;margin-bottom:15px;">
+<br />
+<br />
+<div class="row mt-5 table-margin">
+    <div class="table table-responsive col-xs-10 col-sm-11 pl-0 pr-0 mt-sm-5 ml-0" width:"100%">
+        <b>Total deposits Of Current Month:</b>
+        <input id="totalDeposits" style="width:100px;" class="form-control" type="text" />
+        <br />
+        <table id="tblData" class="table table-striped" cellspacing="0" data-page-length='31'>
+            <thead style="background:#008080!important">
+                <tr class="table-info">
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Member Id</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col-xs-2 col-sm-1 mt-3">
         <a id="popup" class="btn btn-sm btn-success text-white" onclick="showPopup()"><i class="fa fa-plus text-white" aria-hidden="true"></i>New</a>
     </div>
+</div>
+
+
+
 
     <div class="fontChange" sans-serif;" id="popupDiv" style="display:none">
         <div>
@@ -44,19 +77,3 @@
             <button type="submit" class="btn btn-sm btn-danger" onclick="closePopup()">Close</button>
         </div>
     </div>
-</div>
-
-<div class="p-4 border rounded">
-    <table id="tblData" class="table table-striped table-bordered" data-page-length='31'>
-        <thead class="thead-dark">
-            <tr class="table-info">
-                <th>Date</th>
-                <th>Name</th>
-                <th>Member Id</th>
-                <th>Amount</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>

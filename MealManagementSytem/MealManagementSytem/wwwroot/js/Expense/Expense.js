@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $("#totalExpenses").prop('disabled', true);
-    GetDepositCalculation();
+    GetExpenseCalculation();
     $('#tblData').DataTable({
         "paging": true,
         "deferRender": true,
@@ -18,11 +18,11 @@
         ],
         "columns": [
 
-            { "data": "date", "width": "25%" },
-            { "data": "memberId", "width": "25%"},
-            { "data": "memberName", "width": "25%"},
-            { "data": "amount", "width": "25%" },
-            { "data": "bazarDetail", "width": "25%" },
+            { "data": "date", "width": "15%" },
+            { "data": "memberId", "width": "15%"},
+            { "data": "memberName", "width": "15%"},
+            { "data": "amount", "width": "15%" },
+            { "data": "bazarDetail", "width": "15%" },
             {
                 "data": "expenseId", "width": "5%",
                 "render": function (data) {
@@ -65,8 +65,8 @@ function UpdateExpense(data) {
 function PopulateEditData(data) {
 
     $("#popupDiv").dialog({
-        width: 400,
-        height: 450,
+        width: 280,
+        height: 350,
         modal: true,
         dialogClass: 'dialogWithDropShadow'
     });
@@ -125,8 +125,8 @@ var count = 0;
 function showPopup() {
 
     $("#popupDiv").dialog({
-        width: 400,
-        height: 550,
+        width: 280,
+        height: 350,
         modal: true,
         dialogClass: 'dialogWithDropShadow'
     });
@@ -165,7 +165,7 @@ function SaveExpensesAmount() {
         dataType: "json",
         async: true,
         success: function (result) {
-            alert(result);
+            toastr.success(result);
             closePopup();
             $('#tblData').DataTable().ajax.reload();
         },
@@ -205,7 +205,7 @@ function closePopup() {
     $("#popupDiv").dialog('close');
 }
 
-function GetDepositCalculation() {
+function GetExpenseCalculation() {
 
     $.ajax({
         url: "/Expense/ExpenseCalculation",

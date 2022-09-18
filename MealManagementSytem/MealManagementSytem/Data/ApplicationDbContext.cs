@@ -22,5 +22,6 @@ namespace MealManagementSytem.Data
         public DbSet<Expense> Expenses { set; get; }
         public DbSet<Other> Others { set; get; }
         public DbSet<PreviousAccount> PreviousAccounts { set; get; }
+        public DbSet<Schedule> Schedules { set; get; }
     }
 }

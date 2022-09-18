@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $("#totalPreAmount").prop('disabled', true);
+    GetPreviousAmountCalculation();
     $('#tblData').DataTable({
         "paging": true,
         "deferRender": true,
@@ -16,10 +18,10 @@
         ],
         "columns": [
 
-            { "data": "date", "width": "25%" },
-            { "data": "memberId", "width": "25%" },
-            { "data": "memberName", "width": "25%" },
-            { "data": "amount", "width": "25%" },
+            { "data": "date", "width": "15%" },
+            { "data": "memberId", "width": "15%" },
+            { "data": "memberName", "width": "15%" },
+            { "data": "amount", "width": "15%" },
             {
                 "data": "previousAccountId", "width": "5%",
                 "render": function (data) {
@@ -46,7 +48,18 @@
     });
 });
 
+function GetPreviousAmountCalculation() {
 
+    $.ajax({
+        url: "/PreviousAccount/PreviousAmountCalculation",
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#totalPreAmount').val(data);
+        }
+    });
+
+}
 function UpdatePreviousAccount(data) {
 
     $.ajax({
@@ -98,8 +111,8 @@ function DeletePreviousAccount(data) {
 
 function PopulateEditData(data) {
     $("#popupDiv").dialog({
-        width: 400,
-        height: 450,
+        width: 320,
+        height: 400,
         modal: true,
         dialogClass: 'dialogWithDropShadow'
     });
@@ -125,8 +138,8 @@ var count = 0;
 function showPopup() {
 
     $("#popupDiv").dialog({
-        width: 400,
-        height: 450,
+        width: 320,
+        height: 400,
         modal: true,
         dialogClass: 'dialogWithDropShadow'
     });
@@ -165,7 +178,7 @@ function SavePreviousAmount() {
         dataType: "json",
         async: true,
         success: function (result) {
-            alert(result);
+            toastr.success(result);
             closePopup();
             $('#tblData').DataTable().ajax.reload();
         },

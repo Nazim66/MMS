@@ -5,27 +5,228 @@
 
 }
 
-<link rel="stylesheet" href="~/css/Style.css">
-<script src="~/js//Login/Login.js"></script>
+@*<link rel="stylesheet" href="~/css/Style.css">
+    <script src="~/js//Login/Login.js"></script>
 
-<form asp-action="Index" method="post">
-    <div class="shadow p-3 mb-5 w-50" style="margin-left:300px;margin-top:100px;">
-        <div class="bg-light rounded container">
-            <div class="fontuser">
-                <label><b>Username</b></label>
-                <input  asp-for="MemberId" id="loginUser" type="text"
-                       placeholder="Enter Username">
-                <i class="fa fa-user fa-lg"></i>
-            </div>
+    <form asp-action="Index" method="post">
+        <div class="shadow p-3 mb-5 w-50" style="margin-left:300px;margin-top:100px;">
+            <div class="bg-light rounded container">
+                <div class="fontuser">
+                    <label><b>Username</b></label>
+                    <input  asp-for="MemberId" id="loginUser" type="text"
+                           placeholder="Enter Username">
+                    <i class="fa fa-user fa-lg"></i>
+                </div>
 
-            <div class="fontpassword">
-                <label><b>Password</b></label>
-                <input asp-for="MemberPass" id="loginPassword" type="password"
-                       placeholder="Enter Password">
-                <i class="fa fa-key fa-lg"></i>
+                <div class="fontpassword">
+                    <label><b>Password</b></label>
+                    <input asp-for="MemberPass" id="loginPassword" type="password"
+                           placeholder="Enter Password">
+                    <i class="fa fa-key fa-lg"></i>
+                </div>
+                <span style="color:red;">@ViewBag.error</span>
+                <button type="submit">Login</button>
             </div>
-            <span style="color:red;">@ViewBag.error</span>
-            <button type="submit">Login</button>
         </div>
-    </div>
-</form>
+    </form>*@
+
+<style>
+    .my-login-page {
+        background-color: #f7f9fb;
+        font-size: 14px;
+    }
+
+    .my-login-page .brand {
+        width: 90px;
+        height: 90px;
+        overflow: hidden;
+        border-radius: 50%;
+        margin: 40px auto;
+        box-shadow: 0 4px 8px rgba(0,0,0,.05);
+        position: relative;
+        z-index: 1;
+    }
+    .my-login-page .card-wrapper {
+        width: 400px;
+    }
+
+    .my-login-page .card {
+        border-color: transparent;
+        box-shadow: 0 4px 8px rgba(0,0,0,.05);
+    }
+
+    .my-login-page .card.fat {
+        padding: 10px;
+    }
+
+    .my-login-page .card .card-title {
+        margin-bottom: 30px;
+    }
+
+    .my-login-page .form-control {
+        border-width: 2.3px;
+    }
+
+    .my-login-page .form-group label {
+        width: 100%;
+    }
+
+    .my-login-page .btn.btn-block {
+        padding: 12px 10px;
+    }
+
+    @@media screen and (max-width: 425px) {
+        .my-login-page .card-wrapper {
+            width: 90%;
+            margin: 0 auto;
+        }
+    }
+
+    @@media screen and (max-width: 320px) {
+        .my-login-page .card.fat {
+            padding: 0;
+            margin-top:33px;
+        }
+        .my-login-page .card.fat .card-body {
+            padding: 15px;
+        }
+
+    }
+    @@media screen and (max-width: 768px) {
+        .my-login-page .card.fat {
+            padding: 0;
+            margin-top: 33px;
+        }
+            .my-login-page .card.fat .card-body {
+                padding: 15px;
+            }
+    }
+</style>
+<script>
+
+$(function() {
+
+	$("input[type='password'][data-eye]").each(function(i) {
+		var $this = $(this),
+			id = 'eye-password-' + i,
+			el = $('#' + id);
+
+		$this.wrap($("<div/>", {
+			style: 'position:relative',
+			id: id
+		}));
+
+		$this.css({
+			paddingRight: 60
+		});
+		$this.after($("<div/>", {
+			html: 'Show',
+            class: 'btn btn-sm',
+            style: 'background:#008080; color: white', 
+			id: 'passeye-toggle-'+i,
+		}).css({
+				position: 'absolute',
+				right: 10,
+				top: ($this.outerHeight() / 2) - 12,
+				padding: '2px 7px',
+				fontSize: 12,
+				cursor: 'pointer',
+		}));
+
+		$this.after($("<input/>", {
+			type: 'hidden',
+			id: 'passeye-' + i
+		}));
+
+		var invalid_feedback = $this.parent().parent().find('.invalid-feedback');
+
+		if(invalid_feedback.length) {
+			$this.after(invalid_feedback.clone());
+		}
+
+		$this.on("keyup paste", function() {
+			$("#passeye-"+i).val($(this).val());
+		});
+		$("#passeye-toggle-"+i).on("click", function() {
+			if($this.hasClass("show")) {
+				$this.attr('type', 'password');
+				$this.removeClass("show");
+				$(this).removeClass("btn-outline-primary");
+			}else{
+				$this.attr('type', 'text');
+				$this.val($("#passeye-"+i).val());
+				$this.addClass("show");
+				$(this).addClass("btn-outline-primary");
+			}
+		});
+	});
+
+	$(".my-login-validation").submit(function() {
+		var form = $(this);
+        if (form[0].checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+		form.addClass('was-validated');
+	});
+});
+
+</script>
+
+<div class="shadow-sm  my-login-page mt-5 p-3 mb-5 bg-light rounded margin-login">
+    <section class="h-100">
+        <div class="container h-100">
+            <div class="row justify-content-md-center h-100">
+                <div class="card-wrapper">
+                    <div class="card fat">
+                        <div class="card-body">
+                            <h4 class="card-title text-md-center">MMS-Login</h4>
+                            <form asp-action="Index" method="post">
+                                <div class="form-group">
+                                    <label for="email">User Id</label>
+                                    <input  asp-for="MemberId" id="loginUser" type="text" class="form-control">
+                                    <div class="invalid-feedback">
+                                        User Id is invalid
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">
+                                        Password
+                                        <a href="javascript:void(0)" class="float-right">
+                                            Forgot Password?
+                                        </a>
+                                    </label>
+                                    <input asp-for="MemberPass" id="password" type="password" class="form-control" data-eye>
+                                    <div class="invalid-feedback">
+                                        Password is required
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="custom-checkbox custom-control">
+                                        <input type="checkbox" name="remember" id="remember" class="custom-control-input">
+                                        <label for="remember" class="custom-control-label">Remember Me</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group m-0">
+                                    <span style="color:red;">@ViewBag.error</span>
+                                    <button type="submit" class="btn btn-block" style="background:#008080; color:white;">
+                                        Login
+                                    </button>
+                                </div>
+                                <div class="mt-4 text-center">
+                                    @*Don't have an account? <a href="javascript:void(0)">Create One</a>*@
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</div>

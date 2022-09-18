@@ -21,9 +21,9 @@
         ],
         "columns": [
 
-            { "data": "date", "width": "15%" },
-            { "data": "amount", "width": "15%" },
-            { "data": "memberId", "width": "15%", "visible": false },
+            { "data": "date", "width": "5%" },
+            { "data": "amount", "width": "5%" },
+            { "data": "memberId", "width": "5%", "visible": false },
 
         ],
         dom: 'Bfrtip',

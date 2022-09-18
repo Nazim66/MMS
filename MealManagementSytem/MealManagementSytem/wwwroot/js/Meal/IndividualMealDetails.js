@@ -37,8 +37,8 @@ function showPopup() {
     $('#inputFieldForDinner').val("");
     $('#inputFieldForLunch').val("");
     $("#popupDiv").dialog({
-        width: 400,
-        height: 350,
+        width: 250,
+        height: 280,
         modal: true,
         dialogClass: 'dialogWithDropShadow'
     });
@@ -63,7 +63,7 @@ function SaveMealDetail() {
             dataType: "json",
             async: true,
             success: function (result) {
-                alert(result);
+                toastr.success(result);
                 closePopup();
                 $('#tblData').DataTable().ajax.reload();
             },

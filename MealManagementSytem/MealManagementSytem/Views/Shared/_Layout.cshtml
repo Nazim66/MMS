@@ -101,18 +101,14 @@
         .services:hover .dropdown {
             display: block;
         }
-        /*RESPONSIVE NAVBAR MENU STARTS*/
-        /* CHECKBOX HACK */
         input[type=checkbox] {
             display: none;
         }
-        /*HAMBURGER MENU*/
         .hamburger {
             display: none;
             font-size: 24px;
             user-select: none;
         }
-        /* APPLYING MEDIA QUERIES */
         @@media (max-width: 768px) {
             .menu {
                 display: none;
@@ -156,11 +152,28 @@
 
         @@media (max-width: 320px) {
             .menu {
-                margin-top:-8px;
+                margin-top: -8px;
+                font-size: 12px;
+                display:block;
+                overflow:hidden;
+            }
+
+            .menu li {
+                padding: 0px 14px;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .menu {
+                margin-top:-9px;
                 font-size:12px;
             }
             .navbar{
                /* width:1140px;*/
+
+            }
+            .menu li {
+                padding: 0px 14px;
             }
         }
     </style>
@@ -231,6 +244,9 @@
                     </li>
                     <li>
                         <a asp-controller="Expense" asp-action="Index">Expenses</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Schedule" asp-action="Index">Schedule</a>
                     </li>
                     <li>
                         <a asp-controller="Logout" asp-action="Index">Logout</a>

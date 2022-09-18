@@ -95,5 +95,13 @@ namespace MealManagementSytem.Controllers
             status = "Successfully Deleted";
             return Json(status);
         }
+
+        public IActionResult PreviousAmountCalculation()
+        {
+            var date = System.DateTime.Now;
+            var currentDate = date.Date;
+            var totalPreviousAmount = _context.PreviousAccounts.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year).Sum(e => e.Amount);
+            return Json(totalPreviousAmount);
+        }
     }
 }

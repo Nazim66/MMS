@@ -9,12 +9,14 @@
     ViewData["Title"] = "Index";
 }
 <style>
-    .dataTables_filter input{
-        margin-top:30px;
+    .dataTables_filter input {
+        margin-top: 30px;
     }
-    .paginate_button.current{
-        margin-top:17px;
+
+    .paginate_button.current {
+        margin-top: 17px;
     }
+
     @@media (max-width: 768px) {
         #tblData {
             width: 100%;
@@ -23,14 +25,22 @@
 
     @@media (max-width: 320px) {
         #tblData {
-            width: 80px!important;
-            font-size:7px;
+            width: 80px !important;
+            font-size: 7px;
+        }
+        h3 {
+            margin-top: 80px;
+            font-size: 12px;
         }
     }
 
-    @@media (max-width: 500px) {
+    @@media (max-width: 768px) {
         #tblData {
             width: 100px;
+        }
+        h3 {
+            margin-top: 80px;
+            font-size: 18px;
         }
     }
 </style>
@@ -54,20 +64,20 @@
     <br />
     <div class="row">
         <div class="table  table-responsive  pl-0 pr-0">
-                <table id="tblData" class="table table-striped" data-page-length='31'>
-                    <thead style="background:#008080">
-                        <tr class="table-info">
-                            <th>Date</th>
-                            <th>MemberName</th>
-                            <th>MemberId</th>
-                            <th>Lunch</th>
-                            <th>Guest Lunch</th>
-                            <th>Dinner</th>
-                            <th>Guest Dinner</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+            <table id="tblData" class="table table-striped" data-page-length='31'>
+                <thead style="background:#008080">
+                    <tr class="table-info">
+                        <th>Date</th>
+                        <th>MemberName</th>
+                        <th>MemberId</th>
+                        <th>Lunch</th>
+                        <th>Guest Lunch</th>
+                        <th>Dinner</th>
+                        <th>Guest Dinner</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </div>
 </div>
