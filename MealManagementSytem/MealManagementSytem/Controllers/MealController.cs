@@ -20,7 +20,7 @@ namespace MealManagementSytem.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User, Super")]
         public IActionResult Index()
         {
             return View();

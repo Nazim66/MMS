@@ -9,10 +9,12 @@
     ViewData["Title"] = "Index";
 }
 <style>
-    .dataTables_filter input {
-        margin-top: 30px;
+    .dataTables_wrapper .dataTables_length select {
+        margin-top: 17px;
     }
-
+    .dataTables_filter input {
+        margin-top: 17px;
+    }
     .paginate_button.current {
         margin-top: 17px;
     }
@@ -28,6 +30,7 @@
             width: 80px !important;
             font-size: 7px;
         }
+
         h3 {
             margin-top: 80px;
             font-size: 12px;
@@ -38,6 +41,7 @@
         #tblData {
             width: 100px;
         }
+
         h3 {
             margin-top: 80px;
             font-size: 18px;
@@ -56,7 +60,11 @@
 <br />
 <div class="mt-5">
     <div class="mt-5">
-        <marquee><h3 style="color:red;"> Todays Bazar's: Nazim </h3></marquee>
+        <marquee><h3 style="color:red;"> Todays Bazar's: @foreach(var item in ViewBag.bazarPersonName)
+        {
+            @item.MemberName
+        }
+            </h3></marquee>
         <br />
         <b>Total Meals Todays:</b>
         <input id="txtTodaysMeal" style="width:100px;" class="form-control" type="text" />

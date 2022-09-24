@@ -15,6 +15,7 @@ namespace MealManagementSytem.Controllers
         public IActionResult Index()
         {
             HttpContext.Session.Remove("UserId");
+            HttpContext.Session.Remove("UserType");
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Login");
         }

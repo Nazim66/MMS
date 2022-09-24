@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
 {
-    [Authorize(Roles = "Admin, User")]
+    [Authorize(Roles = "Admin, Super")]
     public class PreviousAccountController : Controller
     {
 

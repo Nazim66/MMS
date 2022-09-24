@@ -23,6 +23,17 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult Index()
         {
+            var date = System.DateTime.Now;
+            var name = from s in _context.Schedules
+                       join m in _context.Members on s.MemberId equals m.MemberId
+                       where s.Date.Month == date.Month && s.Date.Year == date.Year && s.Date.Day == date.Day
+                       select new ViewName
+                       {
+                          MemberName = m.MemberName
+                       };
+
+            var value = name.ToList();
+            ViewBag.bazarPersonName = value;
             return View();
         }
         public IActionResult TodaysMeal()

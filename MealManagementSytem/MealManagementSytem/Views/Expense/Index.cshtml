@@ -1,4 +1,10 @@
-﻿<style type="text/css">
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var checkLoginSession = @HttpContextAccessor.HttpContext.Session.GetString("UserId"); ;
+    var checkLogintype = @HttpContextAccessor.HttpContext.Session.GetString("UserType"); ;
+}
+<style type="text/css">
     .dialogWithDropShadow {
         -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
         -moz-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -17,7 +23,6 @@
             margin-top: 200px !important;
         }
     }
-
 </style>
 
 <script src="~/js/Expense/Expense.js"></script>
@@ -39,7 +44,7 @@
                     <th>Member Name</th>
                     <th>Amount</th>
                     <th>Expense Detail</th>
-                    <th>Action</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -50,7 +55,7 @@
     </div>
 </div>
 
-
+<input id="inputFieldForUserType" class='form-control' type="text" />
 <div id="popupDiv" style="display:none">
     <div>
         <div>

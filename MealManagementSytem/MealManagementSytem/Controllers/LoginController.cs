@@ -42,6 +42,7 @@ namespace MealManagementSytem.Controllers
                 else
                 {
                     HttpContext.Session.SetString("UserId", prm.MemberId.ToString());
+                    HttpContext.Session.SetString("UserType", checkLogin.MemberType);
                     var claims = new List<Claim>
                      {
                          new Claim(ClaimTypes.Role, checkLogin.MemberType)

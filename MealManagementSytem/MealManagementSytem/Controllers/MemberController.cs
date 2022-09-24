@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Super")]
     public class MemberController : Controller
     {
 
@@ -28,8 +28,7 @@ namespace MealManagementSytem.Controllers
 
         public IActionResult AllMember()
         {
-            var MemberList = _context.Members.ToList();
-
+            var MemberList = _context.Members.Where(x=> x.MemberType != "Super").ToList();
             return Json(MemberList);
         }
 

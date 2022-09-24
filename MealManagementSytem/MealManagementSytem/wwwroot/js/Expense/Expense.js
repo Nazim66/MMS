@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿var Type = "";
+$(document).ready(function () {
+    CheckUserType();
     $("#totalExpenses").prop('disabled', true);
     GetExpenseCalculation();
     $('#tblData').DataTable({
@@ -14,19 +16,20 @@
                 targets: 0,
                 render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss', 'YYYY/MM/DD'),
             },
-           
+
         ],
         "columns": [
 
             { "data": "date", "width": "15%" },
-            { "data": "memberId", "width": "15%"},
-            { "data": "memberName", "width": "15%"},
+            { "data": "memberId", "width": "15%" },
+            { "data": "memberName", "width": "15%" },
             { "data": "amount", "width": "15%" },
             { "data": "bazarDetail", "width": "15%" },
             {
                 "data": "expenseId", "width": "5%",
                 "render": function (data) {
-                    return `
+                    if ($('#inputFieldForUserType').val() == "Admin") {
+                        return `
                             <div class="text-center">
                                 <a style="color:black" onclick=UpdateExpense("/Expense/UpdateExpenseById/${data}") >
                                     <i class="fas fa-edit"></i>
@@ -36,9 +39,12 @@
                                 </a>
                            </div>`;
 
+                    }
+                    else {
+                        return '';
+                    }
                 }, "width": "20%"
             }
-
         ],
         dom: 'lfrtBip',
         select: true,
@@ -46,8 +52,26 @@
             'copy', 'excel', 'pdf', 'csv'
         ]
     });
+    setTimeout(function () {
+        Type = $('#inputFieldForUserType').val();
+        //console.warn(Type);
+    },2000)
+    
 });
 
+function CheckUserType() {
+    $.ajax({
+        url: '/Expense/CheckUserType',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            $('#inputFieldForUserType').val(data);
+        },
+        error: function (data) {
+            return dt;
+        }
+    });
+}
 
 function UpdateExpense(data) {
 

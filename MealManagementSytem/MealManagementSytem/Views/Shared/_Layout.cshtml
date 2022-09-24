@@ -2,6 +2,7 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     var checkLoginSession = @HttpContextAccessor.HttpContext.Session.GetString("UserId"); ;
+    var checkLogintype = @HttpContextAccessor.HttpContext.Session.GetString("UserType"); ;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -197,69 +198,84 @@
                 </li>
                 @if (checkLoginSession != null)
                 {
-                    <li>
-                        <a asp-controller="Member" asp-action="Index">Members</a>
-                    </li>
-                    <li class="services">
-                        <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Meals
-                        </a>
-                        <!-- DROPDOWN MENU -->
-                        <ul class="dropdown">
+                    if (checkLogintype == "Admin" || checkLogintype == "Super")
+                    {
                             <li>
-                                <a asp-area="" asp-controller="Meal" asp-action="Index">Indiv. Meal </a>
+                                <a asp-controller="Member" asp-action="Index">Members</a>
+                            </li>
+                    }
+                            <li class="services">
+                                <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Meals
+                                </a>
+                                <!-- DROPDOWN MENU -->
+                                <ul class="dropdown">
+                                    <li>
+                                        <a asp-area="" asp-controller="Meal" asp-action="Index">Indiv. Meal </a>
+                                    </li>
+                                    @{ if (checkLogintype == "Admin" || checkLogintype == "Super")
+                                        {
+                                            <li>
+                                                <a asp-area="" asp-controller="Meal" asp-action="AllMeals">All Meals</a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                            <li class="services">
+                                <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Deposits
+                                </a>
+                                <!-- DROPDOWN MENU -->
+                                <ul class="dropdown">
+                                    <li>
+                                        <a asp-area="" asp-controller="Deposite" asp-action="Index">Indiv.Deposit </a>
+                                    </li>
+                                    @{ if (checkLogintype == "Admin" || checkLogintype == "Super")
+                                        {
+                                            <li>
+                                                <a asp-area="" asp-controller="Deposite" asp-action="AllDeposits">Deposits</a>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                            <li class="services">
+                                <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Accounts
+                                </a>
+                                <!-- DROPDOWN MENU -->
+                                <ul class="dropdown">
+                                    @{ if (checkLogintype == "Admin" || checkLogintype == "Super")
+                                        {
+                                            <li>
+                                                <a asp-controller="PreviousAccount" asp-action="Index">Pre.Amount</a>
+                                            </li>
+                                        }
+                                    }
+                                    <li>
+                                        <a asp-controller="OverallCalculation" asp-action="Index">Calculation</a>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Meal" asp-action="AllMeals">All Meals</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="services">
-                        <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Deposits
-                        </a>
-                        <!-- DROPDOWN MENU -->
-                        <ul class="dropdown">
-                            <li>
-                                <a asp-area="" asp-controller="Deposite" asp-action="Index">Indiv.Deposit </a>
+                                <a asp-controller="Expense" asp-action="Index">Expenses</a>
                             </li>
                             <li>
-                                <a asp-area="" asp-controller="Deposite" asp-action="AllDeposits">Deposits</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="services">
-                        <a id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Accounts
-                        </a>
-                        <!-- DROPDOWN MENU -->
-                        <ul class="dropdown">
-                            <li>
-                                <a asp-controller="PreviousAccount" asp-action="Index">Pre.Amount</a>
+                                <a asp-controller="Schedule" asp-action="Index">Schedule</a>
                             </li>
                             <li>
-                                <a asp-controller="OverallCalculation" asp-action="Index">Calculation</a>
+                                <a asp-controller="Logout" asp-action="Index">Logout</a>
                             </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a asp-controller="Expense" asp-action="Index">Expenses</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Schedule" asp-action="Index">Schedule</a>
-                    </li>
-                    <li>
-                        <a asp-controller="Logout" asp-action="Index">Logout</a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a asp-controller="Login" asp-action="Index">Login</a>
-                    </li>
-                }
-                </div>
-            </ul>
+                        }
+                        else
+                        {
+                            <li>
+                                <a asp-controller="Login" asp-action="Index">Login</a>
+                            </li>
+                        }
+                        </div>
+                    </ul>
         </nav>
     </header>
     <div class="container">

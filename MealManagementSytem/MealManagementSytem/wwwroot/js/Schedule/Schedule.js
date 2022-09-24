@@ -2,7 +2,6 @@
     makeDropdownforName();
 });
 
-
 function makeDropdownforName() {
     var select = $("#ddlNameList");
     $.ajax({
@@ -19,3 +18,5 @@ function makeDropdownforName() {
         }
     });
 }
+
+

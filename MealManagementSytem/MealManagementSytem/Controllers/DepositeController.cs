@@ -20,7 +20,7 @@ namespace MealManagementSytem.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User, Super")]
         public IActionResult Index()
         {
             return View();
@@ -41,7 +41,7 @@ namespace MealManagementSytem.Controllers
             var totalIndividualDeposits = _context.Deposites.Where(x => x.Date.Month == currentDate.Month && x.Date.Year == currentDate.Year && x.MemberId == Convert.ToInt32(id)).Sum(e => e.Amount).ToString();
             return Json(totalIndividualDeposits);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Super")]
         public IActionResult AllDeposits()
         {
             return View();

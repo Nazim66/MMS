@@ -2,6 +2,7 @@
 using MealManagementSytem.Entities;
 using MealManagementSytem.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MealManagementSytem.Controllers
 {
-    [Authorize(Roles = "Admin, User")]
+    [Authorize(Roles = "Admin, User, Super")]
     public class ExpenseController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -92,6 +93,11 @@ namespace MealManagementSytem.Controllers
             _context.SaveChanges();
             status = "Successfully Deleted";
             return Json(status);
+        }
+        public IActionResult CheckUserType()
+        {
+            var type = HttpContext.Session.GetString("UserType");
+            return Json(type);
         }
     }
 }
